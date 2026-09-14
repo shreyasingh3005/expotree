@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Book a Stall | Exhibitor Partner Portal | Expo Tree Exhibitions</title>
+  <meta name="description" content="Book your exhibition stall across Delhi NCR's top malls with Expo Tree Exhibitions. Reach 25,000+ shoppers per weekend. Instant enquiry on WhatsApp: 9811175057" />
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg" />
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800;900&family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- Top Announcement Bar -->
+  <aside class="top-announcement-bar">
+    <div class="top-announcement-inner">
+      <div class="top-highlights">
+        <div class="top-highlight-item">
+          <span>🎪</span>
+          <span>Exhibitor Early-Bird Stalls Open for Grand Diwali &amp; Winter Melas</span>
+        </div>
+      </div>
+      <div class="top-actions">
+        <a href="tel:9811175057" class="top-phone-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <span>9811175057</span>
+        </a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Header -->
+  <header class="main-header">
+    <nav class="navbar">
+      <a href="index.html" class="brand-logo">
+        <img src="images/logo.svg" alt="Expo Tree Logo" />
+      </a>
+
+      <ul class="nav-menu">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="upcoming-exhibitions.html" class="nav-link">Upcoming Exhibitions</a></li>
+        <li><a href="categories.html" class="nav-link">Categories</a></li>
+        <li><a href="book-a-stall.html" class="nav-link active">Book a Stall</a></li>
+        <li><a href="free-shopper-pass.html" class="nav-link">Free Shopper Pass</a></li>
+        <li><a href="gallery.html" class="nav-link">Gallery</a></li>
+        <li><a href="about-us.html" class="nav-link">About Us</a></li>
+        <li><a href="faq.html" class="nav-link">FAQ</a></li>
+        <li><a href="contact.html" class="nav-link">Contact</a></li>
+      </ul>
+
+      <div class="nav-cta-group">
+        <a href="book-a-stall.html" class="btn btn-gold">
+          <span>Book a Stall</span>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <button class="mobile-menu-toggle" aria-label="Toggle menu">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Page Hero Header -->
+  <section class="section" style="background: radial-gradient(circle at 50% 30%, #420812 0%, #28050a 60%, #150205 100%); color: #ffffff; padding: 4.5rem 1.5rem 3.5rem; text-align: center; position: relative; overflow: hidden;">
+    <div class="hero-bg-photo" aria-hidden="true" style="opacity: 0.16;"></div>
+    <div class="container">
+      <span class="section-badge badge-gold">For Exhibitors &amp; Creators</span>
+      <h1 class="section-title title-white">Book Your Stall &amp; Maximize Your Sales</h1>
+      <div class="festive-divider"><span class="festive-divider-icon">✦</span></div>
+      <p class="section-subtitle subtitle-white" style="max-width: 800px; margin: 0 auto;">
+        Connect your brand directly with 15,000 to 35,000+ affluent shoppers in Delhi NCR's top luxury malls, club venues, and high-footfall atriums.
+      </p>
+    </div>
+  </section>
+
+  <!-- Interactive Stall Booking Studio Section -->
+  <section id="booking-studio" class="section booking-studio-section">
+    <div class="container">
+      <div class="booking-studio-layout">
+        
+        <!-- Left: Interactive Wizard -->
+        <div class="wizard-panel">
+          <!-- Step 1: Exhibition Selection -->
+          <div class="wizard-group">
+            <div class="wizard-step-title">
+              <span class="step-number-circle">1</span>
+              <span>Select Target Exhibition &amp; City</span>
+            </div>
+            <label class="wizard-label" for="wizard-exhibition-select">Upcoming Exhibition:</label>
+            <select id="wizard-exhibition-select" class="wizard-select">
+              <!-- Populated dynamically -->
+            </select>
+          </div>
+
+          <!-- Step 2: Brand Category & Name -->
+          <div class="wizard-group">
+            <div class="wizard-step-title">
+              <span class="step-number-circle">2</span>
+              <span>Your Brand &amp; Product Category</span>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+              <div>
+                <label class="wizard-label" for="wizard-brand-name">Brand / Business Name:</label>
+                <input type="text" id="wizard-brand-name" class="wizard-input" placeholder="e.g. Aura Jewels" />
+              </div>
+              <div>
+                <label class="wizard-label" for="wizard-category-select">Select Category:</label>
+                <select id="wizard-category-select" class="wizard-select">
+                  <option value="Jewellery &amp; Accessories">Jewellery &amp; Accessories</option>
+                  <option value="Handbags">Handbags</option>
+                  <option value="Apparel &amp; Footwear">Apparel &amp; Footwear</option>
+                  <option value="Gifting &amp; Home Décor">Gifting &amp; Home Décor</option>
+                  <option value="Skincare &amp; Perfumes">Skincare &amp; Perfumes</option>
+                  <option value="Crochet &amp; Handmade">Crochet &amp; Handmade</option>
+                  <option value="Candles &amp; Soaps">Candles &amp; Soaps</option>
+                  <option value="Wooden Toys">Wooden Toys</option>
+                  <option value="Home Furnishings">Home Furnishings</option>
+                  <option value="Bakery &amp; Dryfruits">Bakery &amp; Dryfruits</option>
+                  <option value="Food Stalls">Food Stalls</option>
+                  <option value="Handmade Products">Handmade Products</option>
+                  <option value="Kidswear">Kidswear</option>
+                  <option value="Tarot Card Reading">Tarot Card Reading</option>
+                  <option value="Healing Products">Healing Products</option>
+                  <option value="Toys &amp; Stationery">Toys &amp; Stationery</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 3: Stall Type Selection -->
+          <div class="wizard-group">
+            <div class="wizard-step-title">
+              <span class="step-number-circle">3</span>
+              <span>Choose Your Stall Configuration</span>
+            </div>
+            <div class="stall-options-grid">
+              <div class="stall-type-card selected" data-stall="Prime Corner Canopy">
+                <div class="stall-type-header">
+                  <div class="stall-name">Prime Corner Canopy</div>
+                  <div class="stall-badge">Most Popular</div>
+                </div>
+                <div class="stall-desc">2-Side Open corner canopy in highest footfall junction. Maximum visitor visibility and natural walk-in crowd.</div>
+              </div>
+
+              <div class="stall-type-card" data-stall="Center Island Booth">
+                <div class="stall-type-header">
+                  <div class="stall-name">Center Island Booth</div>
+                  <div class="stall-badge">Hero Placement</div>
+                </div>
+                <div class="stall-desc">4-Side Open premium centerpiece booth in central atrium. 360-degree brand exposure and high-ticket customer attraction.</div>
+              </div>
+
+              <div class="stall-type-card" data-stall="Standard Canopy Stall">
+                <div class="stall-type-header">
+                  <div class="stall-name">Standard Canopy Stall</div>
+                  <div class="stall-badge">High Traffic</div>
+                </div>
+                <div class="stall-desc">3x3m covered stall in main shopping corridor with complete fabric draping, 2 chairs, 1 draped table &amp; lights.</div>
+              </div>
+
+              <div class="stall-type-card" data-stall="Boutique Table Space">
+                <div class="stall-type-header">
+                  <div class="stall-name">Boutique Table Space</div>
+                  <div class="stall-badge">Handmade / Startup</div>
+                </div>
+                <div class="stall-desc">Compact dedicated table setup ideal for handmade soaps, crochet, scented candles, tarot card readers &amp; healing crystals.</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 4: Amenities & Add-ons -->
+          <div class="wizard-group">
+            <div class="wizard-step-title">
+              <span class="step-number-circle">4</span>
+              <span>Optional Amenities &amp; Services</span>
+            </div>
+            <div class="addons-grid">
+              <label class="addon-label-box">
+                <input type="checkbox" class="addon-checkbox" data-name="15A Power Backup" checked />
+                <span>15A High-Power Electrical Point</span>
+              </label>
+              <label class="addon-label-box">
+                <input type="checkbox" class="addon-checkbox" data-name="Extra Display Table &amp; Spotlights" />
+                <span>Extra Draped Table + 2 Spotlights</span>
+              </label>
+              <label class="addon-label-box">
+                <input type="checkbox" class="addon-checkbox" data-name="Instagram Promotion (88.9K Page)" checked />
+                <span>Feature on @expo_tree (88.9K)</span>
+              </label>
+              <label class="addon-label-box">
+                <input type="checkbox" class="addon-checkbox" data-name="Fascia Brand Nameboard" checked />
+                <span>Custom Printed Fascia Nameboard</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Live Summary & WhatsApp CTA -->
+        <div class="booking-summary-card">
+          <div class="summary-crest">
+            <img src="images/logo.svg" alt="Expo Tree Emblem" />
+            <div class="summary-title">STALL BOOKING SUMMARY</div>
+          </div>
+
+          <div class="summary-rows">
+            <div class="summary-row">
+              <span class="summary-label">Exhibition:</span>
+              <span class="summary-value" id="summary-event-name">Grand Diwali Carnival (Gurugram)</span>
+            </div>
+            <div class="summary-row">
+              <span class="summary-label">Category:</span>
+              <span class="summary-value" id="summary-category-name">Jewellery &amp; Accessories</span>
+            </div>
+            <div class="summary-row">
+              <span class="summary-label">Stall Type:</span>
+              <span class="summary-value" id="summary-stall-type">Prime Corner Canopy</span>
+            </div>
+            <div class="summary-row">
+              <span class="summary-label">Amenities:</span>
+              <span class="summary-value" id="summary-addons-text">15A Power, Instagram Feature, Fascia Board</span>
+            </div>
+          </div>
+
+          <ul class="summary-perks">
+            <li>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Guaranteed Prime Footfall Placement</span>
+            </li>
+            <li>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Tables, Chairs, Fabric Draping &amp; Lighting Included</span>
+            </li>
+            <li>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Promotion on 88.9K+ Follower Instagram Page</span>
+            </li>
+            <li>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Full Power Backup &amp; Venue Security 24/7</span>
+            </li>
+          </ul>
+
+          <a href="#" id="whatsapp-booking-btn" class="btn btn-whatsapp instant-whatsapp-cta-btn">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+            <span>Instant WhatsApp Enquiry (9811175057)</span>
+          </a>
+
+          <div class="booking-hotline-note">
+            Prefer speaking directly? Call our Booking Team: <a href="tel:9811175057">9811175057</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Exhibitor Advantages Section -->
+  <section class="section" style="background: #ffffff;">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-badge badge-burgundy">Why Partner With Us</span>
+        <h2 class="section-title title-burgundy">The Expo Tree Exhibitor Advantage</h2>
+        <div class="festive-divider"><span class="festive-divider-icon">✦</span></div>
+        <p class="section-subtitle">
+          Over 12,000 small brands have expanded their customer base and generated record festive revenues with our curated exhibitions.
+        </p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 2rem;">
+        <div style="background: var(--bg-ivory); border: 1px solid var(--border-gold); border-radius: 18px; padding: 2rem; text-align: center;">
+          <div style="font-size: 2.5rem; margin-bottom: 1rem;">👥</div>
+          <h3 style="font-size: 1.2rem; color: var(--burgundy-950); margin-bottom: 0.5rem;">Affluent Footfall</h3>
+          <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.6;">
+            We handpick tier-1 venues in Gurgaon, Noida, and South Delhi with high foot traffic and strong spending power.
+          </p>
+        </div>
+
+        <div style="background: var(--bg-ivory); border: 1px solid var(--border-gold); border-radius: 18px; padding: 2rem; text-align: center;">
+          <div style="font-size: 2.5rem; margin-bottom: 1rem;">📱</div>
+          <h3 style="font-size: 1.2rem; color: var(--burgundy-950); margin-bottom: 0.5rem;">88.9K Instagram Shoutouts</h3>
+          <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.6;">
+            Get pre-event and live spotlight reels, stories, and tagged promotions directly across our engaged community.
+          </p>
+        </div>
+
+        <div style="background: var(--bg-ivory); border: 1px solid var(--border-gold); border-radius: 18px; padding: 2rem; text-align: center;">
+          <div style="font-size: 2.5rem; margin-bottom: 1rem;">⚡</div>
+          <h3 style="font-size: 1.2rem; color: var(--burgundy-950); margin-bottom: 0.5rem;">Complete On-Ground Support</h3>
+          <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.6;">
+            Dedicated on-ground crew to assist with setup, electricity points, lighting, table linen, and security.
+          </p>
+        </div>
+
+        <div style="background: var(--bg-ivory); border: 1px solid var(--border-gold); border-radius: 18px; padding: 2rem; text-align: center;">
+          <div style="font-size: 2.5rem; margin-bottom: 1rem;">🎯</div>
+          <h3 style="font-size: 1.2rem; color: var(--burgundy-950); margin-bottom: 0.5rem;">Category Exclusivity</h3>
+          <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.6;">
+            We balance categories carefully so your brand doesn’t face unnecessary saturation, ensuring maximum sales.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="main-footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="images/logo.svg" alt="Expo Tree Logo" />
+        <p class="footer-desc">
+          Connecting homegrown businesses with eager shoppers across Delhi NCR through curated lifestyle &amp; festive exhibitions.
+        </p>
+      </div>
+
+      <div>
+        <div class="footer-heading">Quick Links</div>
+        <ul class="footer-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="upcoming-exhibitions.html">Upcoming Exhibitions</a></li>
+          <li><a href="categories.html">16 Categories We Host</a></li>
+          <li><a href="book-a-stall.html">Book a Stall (Exhibitors)</a></li>
+          <li><a href="free-shopper-pass.html">Free Shopper VIP Pass</a></li>
+          <li><a href="gallery.html">Real Photo Gallery</a></li>
+          <li><a href="about-us.html">About Us</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="footer-heading">Coverage Hubs</div>
+        <ul class="footer-links">
+          <li><a href="upcoming-exhibitions.html?city=gurugram">Gurugram</a></li>
+          <li><a href="upcoming-exhibitions.html?city=noida">Noida</a></li>
+          <li><a href="upcoming-exhibitions.html?city=delhi">Delhi</a></li>
+          <li><a href="upcoming-exhibitions.html?city=faridabad">Faridabad</a></li>
+          <li><a href="upcoming-exhibitions.html?city=ghaziabad">Ghaziabad</a></li>
+          <li><a href="upcoming-exhibitions.html?city=greater%20noida">Greater Noida</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="footer-heading">Direct Contact</div>
+        <p style="font-size: 0.9rem; margin-bottom: 0.6rem; color: #ffffff;">
+          <strong>Hotline:</strong> <a href="tel:9811175057" style="color: var(--gold-300); text-decoration: none;">9811175057</a>
+        </p>
+        <p style="font-size: 0.9rem; margin-bottom: 0.6rem; color: #ffffff;">
+          <strong>WhatsApp:</strong> <a href="https://wa.me/9811175057" target="_blank" rel="noopener noreferrer" style="color: #25D366; text-decoration: none;">+91 9811175057</a>
+        </p>
+        <a href="book-a-stall.html" class="btn btn-gold" style="width: 100%; margin-top: 1rem;">
+          <span>🎪 Stall Booking Partner</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div>© 2026 Expo Tree Exhibitions. All Rights Reserved.</div>
+      <div class="footer-bottom-links">
+        <a href="#" class="open-privacy-modal">Privacy Policy</a>
+        <a href="#" class="open-terms-modal">Terms &amp; Conditions</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Live Social Proof & WhatsApp Floating -->
+  <div id="live-social-toast" class="live-social-toast" role="status" aria-live="polite">
+    <div class="toast-badge-icon" id="toast-icon">🎉</div>
+    <div class="toast-info">
+      <div class="toast-msg" id="toast-text"><strong>Pooja Verma</strong> (Gurugram) just booked a Corner Stall!</div>
+      <div class="toast-time" id="toast-time">Just now • Verified Booking</div>
+    </div>
+    <button class="toast-close-btn" id="toast-close-btn">&times;</button>
+  </div>
+
+  <a href="https://wa.me/9811175057" target="_blank" rel="noopener noreferrer" class="floating-whatsapp-btn" aria-label="Chat on WhatsApp">
+    <svg width="34" height="34" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+  </a>
+
+  <!-- Mobile Sticky Bar -->
+  <div class="mobile-sticky-bar">
+    <div class="mobile-bar-actions">
+      <a href="tel:9811175057" class="mobile-action-btn call"><span>Call</span></a>
+      <a href="book-a-stall.html" class="mobile-action-btn book"><span>🎪 Book Stall</span></a>
+      <a href="https://wa.me/9811175057" class="mobile-action-btn whatsapp"><span>WhatsApp</span></a>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

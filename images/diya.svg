@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 80" fill="none">
+  <defs>
+    <linearGradient id="clay" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#D4AF37" />
+      <stop offset="60%" stop-color="#996515" />
+      <stop offset="100%" stop-color="#5E3904" />
+    </linearGradient>
+    <radialGradient id="flame" cx="50%" cy="80%" r="70%">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="25%" stop-color="#FFF275" />
+      <stop offset="60%" stop-color="#FF9233" />
+      <stop offset="100%" stop-color="#E84118" />
+    </radialGradient>
+  </defs>
+  <!-- Flame -->
+  <path d="M50 4 C40 18 36 30 42 42 C45 46 50 48 50 48 C50 48 55 46 58 42 C64 30 60 18 50 4 Z" fill="url(#flame)" />
+  <circle cx="50" cy="38" r="4" fill="#FFFFFF" opacity="0.8" />
+  <!-- Diya Body -->
+  <path d="M15 48 C15 68 35 76 50 76 C65 76 85 68 85 48 C85 46 75 48 50 48 C25 48 15 46 15 48 Z" fill="url(#clay)" />
+  <!-- Rim & Base -->
+  <ellipse cx="50" cy="48" rx="35" ry="5" fill="#C59B27" />
+  <ellipse cx="50" cy="74" rx="14" ry="3" fill="#5E3904" />
+</svg>
