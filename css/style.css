@@ -3615,4 +3615,396 @@ body.nav-drawer-open {
   }
 }
 
+/* ==========================================================
+   Event Details Page (.event-page) - Fully Responsive System
+   ========================================================== */
+.event-hero-section {
+  padding: 3rem 1.25rem 2.25rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.event-breadcrumb-wrap {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.85rem;
+  flex-wrap: wrap;
+}
+.event-hero-title {
+  font-family: var(--font-cinzel);
+  font-size: clamp(1.4rem, 4vw, 2.5rem);
+  color: #ffffff;
+  margin-bottom: 0.75rem;
+  text-align: center;
+  line-height: 1.25;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+.event-hero-meta {
+  display: flex;
+  justify-content: center;
+  gap: 1rem 1.5rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+  font-size: 0.95rem;
+  color: #ffd6df;
+}
+.event-hero-meta > div {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  word-break: break-word;
+}
+
+.event-main-section {
+  padding-top: 2.5rem;
+  padding-bottom: 4.5rem;
+}
+
+/* Two-Column Grid */
+.event-details-layout {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 2.5rem;
+  align-items: start;
+}
+
+/* Left Hero Media Card */
+.event-hero-media {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1.5px solid var(--border-gold);
+  box-shadow: var(--shadow-card);
+  margin-bottom: 1.75rem;
+  background: #1a0408;
+}
+.event-hero-img {
+  width: 100%;
+  height: 380px;
+  object-fit: cover;
+  display: block;
+}
+.event-media-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(20,2,5,0.85) 100%);
+}
+.event-media-info {
+  position: absolute;
+  bottom: 1.25rem;
+  left: 1.25rem;
+  right: 1.25rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  color: #ffffff;
+  gap: 1rem;
+}
+.event-category-badge {
+  display: inline-block;
+  background: var(--gold-500);
+  color: #1a0408;
+  font-size: 0.78rem;
+  font-weight: 800;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.event-media-venue-title {
+  font-family: var(--font-cinzel);
+  font-size: 1.5rem;
+  color: #ffffff;
+  margin-top: 0.4rem;
+  line-height: 1.25;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.85);
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Common Card Containers */
+.event-card {
+  background: #ffffff;
+  border: 1.5px solid var(--border-gold);
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: var(--shadow-card);
+  margin-bottom: 1.75rem;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+.event-card-title {
+  font-family: var(--font-cinzel);
+  font-size: 1.35rem;
+  color: var(--burgundy-950);
+  margin-bottom: 1.25rem;
+  border-bottom: 1px solid #ebdada;
+  padding-bottom: 0.75rem;
+}
+
+/* Specifications Grid */
+.event-specs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1.15rem;
+  margin-bottom: 1.5rem;
+}
+.event-spec-box {
+  background: #faf7f8;
+  padding: 0.9rem 1rem;
+  border-radius: 12px;
+  border: 1px solid #ebdada;
+}
+.event-spec-label {
+  font-size: 0.75rem;
+  color: #777;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.25rem;
+}
+.event-spec-value {
+  font-size: 1.02rem;
+  font-weight: 700;
+  color: var(--burgundy-900);
+  word-break: break-word;
+}
+
+/* Address & Info Subboxes */
+.event-address-box {
+  background: #fdfaf6;
+  border-left: 4px solid var(--gold-500);
+  padding: 1rem 1.25rem;
+  border-radius: 0 10px 10px 0;
+  margin-bottom: 1.25rem;
+  word-break: break-word;
+}
+.event-info-subbox {
+  background: #faf7f8;
+  border: 1px solid #ebdada;
+  border-radius: 12px;
+  padding: 1.25rem;
+  margin-top: 1.15rem;
+  word-break: break-word;
+}
+.event-info-subbox-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+/* Stall Pricing Table */
+.event-table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 10px;
+}
+.event-pricing-table {
+  width: 100%;
+  min-width: 480px;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+  text-align: left;
+}
+.event-pricing-table th {
+  padding: 0.85rem 1rem;
+  background: #faf4f5;
+  color: var(--burgundy-950);
+  border-bottom: 2px solid var(--border-gold);
+  font-weight: 700;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+}
+.event-pricing-table td {
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid #ebdada;
+  vertical-align: middle;
+}
+
+/* Right Column Booking Studio */
+.event-booking-studio {
+  background: #ffffff;
+  border: 2px solid var(--gold-500);
+  border-radius: 20px;
+  padding: 2rem 1.75rem;
+  box-shadow: 0 15px 35px rgba(43, 7, 13, 0.12);
+  position: sticky;
+  top: 90px;
+}
+.event-booking-header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid #ebdada;
+  padding-bottom: 1.25rem;
+}
+.form-row-2col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-bottom: 1.15rem;
+}
+.form-input-control {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.68rem 0.85rem;
+  border: 1.5px solid #d8c3c7;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  background: #ffffff;
+  color: var(--text-dark);
+  font-family: inherit;
+  transition: border-color 0.2s ease;
+}
+.form-input-control:focus {
+  border-color: var(--burgundy-800);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(107, 15, 26, 0.1);
+}
+
+.event-cost-estimate-box {
+  background: linear-gradient(135deg, #fdf6f7 0%, #faecee 100%);
+  border: 1.5px solid var(--border-gold);
+  border-radius: 14px;
+  padding: 1.15rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Voucher Card */
+.voucher-card {
+  background: linear-gradient(135deg, #064E3B 0%, #022c22 100%);
+  border: 2px solid #10B981;
+  border-radius: 20px;
+  padding: 2.5rem 1.75rem;
+  color: #ffffff;
+  margin-bottom: 3rem;
+  box-shadow: 0 15px 40px rgba(6, 78, 59, 0.4);
+  text-align: center;
+}
+.voucher-details-box {
+  background: rgba(0,0,0,0.3);
+  border: 1px solid rgba(167, 243, 208, 0.3);
+  border-radius: 14px;
+  max-width: 600px;
+  margin: 0 auto 2rem;
+  padding: 1.5rem;
+  text-align: left;
+  font-size: 0.92rem;
+}
+.voucher-grid-2col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.85rem;
+}
+
+/* ==========================================================
+   Responsive Breakpoints for event.php
+   ========================================================== */
+@media (max-width: 991px) {
+  .event-details-layout {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .event-booking-studio {
+    position: static !important; /* Never stick on tablet/mobile */
+    top: auto !important;
+  }
+  .event-hero-img {
+    height: 320px;
+  }
+}
+
+@media (max-width: 767px) {
+  .event-hero-section {
+    padding: 2.25rem 1rem 1.75rem;
+  }
+  .event-hero-title {
+    font-size: 1.5rem;
+    line-height: 1.3;
+  }
+  .event-hero-meta {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    text-align: center;
+    font-size: 0.88rem;
+  }
+  .event-main-section {
+    padding-top: 1.5rem;
+    padding-bottom: 3.5rem;
+  }
+  .event-card,
+  .event-booking-studio {
+    padding: 1.35rem 1rem;
+    border-radius: 16px;
+  }
+  .event-hero-img {
+    height: 240px;
+  }
+  .event-media-info {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    bottom: 1rem;
+    left: 1rem;
+    right: 1rem;
+  }
+  .event-media-venue-title {
+    font-size: 1.25rem;
+  }
+  .event-specs-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+  .event-spec-box {
+    padding: 0.75rem 0.85rem;
+  }
+  .event-spec-value {
+    font-size: 0.9rem;
+  }
+  .event-info-subbox-grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+  .form-row-2col {
+    grid-template-columns: 1fr; /* Stack inputs cleanly on mobile */
+    gap: 0.85rem;
+    margin-bottom: 0.85rem;
+  }
+  .voucher-grid-2col {
+    grid-template-columns: 1fr;
+  }
+  .voucher-card {
+    padding: 1.5rem 1rem;
+  }
+  .voucher-details-box {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .event-hero-section {
+    padding: 2rem 0.75rem 1.5rem;
+  }
+  .event-specs-grid {
+    grid-template-columns: 1fr; /* Single column on phones */
+    gap: 0.65rem;
+  }
+  .event-hero-img {
+    height: 210px;
+  }
+  .event-pricing-table {
+    min-width: 420px;
+  }
+  .btn-wa-voucher {
+    font-size: 0.95rem !important;
+    padding: 0.85rem 1.25rem !important;
+    width: 100% !important;
+    text-align: center !important;
+    justify-content: center !important;
+  }
+}
+
 

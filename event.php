@@ -305,23 +305,95 @@ require_once __DIR__ . '/includes/header.php';
 <?= json_encode($schemaEventData, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) ?>
 </script>
 
+<style>
+/* Scoped Mobile Responsiveness for event.php */
+.event-hero-section { padding: 3rem 1.25rem 2.25rem; text-align: center; position: relative; overflow: hidden; }
+.event-breadcrumb-wrap { display: flex; gap: 0.5rem; align-items: center; justify-content: center; margin-bottom: 0.85rem; flex-wrap: wrap; }
+.event-hero-title { font-family: var(--font-cinzel); font-size: clamp(1.4rem, 4vw, 2.5rem); color: #ffffff; margin-bottom: 0.75rem; text-align: center; line-height: 1.25; word-wrap: break-word; overflow-wrap: break-word; }
+.event-hero-meta { display: flex; justify-content: center; gap: 1rem 1.5rem; flex-wrap: wrap; margin-top: 1rem; font-size: 0.95rem; color: #ffd6df; }
+.event-hero-meta > div { display: flex; align-items: center; gap: 0.4rem; word-break: break-word; }
+.event-main-section { padding-top: 2.5rem; padding-bottom: 4.5rem; }
+.event-details-layout { display: grid; grid-template-columns: 1.2fr 1fr; gap: 2.5rem; align-items: start; }
+.event-hero-media { position: relative; border-radius: 20px; overflow: hidden; border: 1.5px solid var(--border-gold); box-shadow: var(--shadow-card); margin-bottom: 1.75rem; background: #1a0408; }
+.event-hero-img { width: 100%; height: 380px; object-fit: cover; display: block; }
+.event-media-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(20,2,5,0.85) 100%); }
+.event-media-info { position: absolute; bottom: 1.25rem; left: 1.25rem; right: 1.25rem; display: flex; justify-content: space-between; align-items: flex-end; color: #ffffff; gap: 1rem; }
+.event-category-badge { display: inline-block; background: var(--gold-500); color: #1a0408; font-size: 0.78rem; font-weight: 800; padding: 0.25rem 0.75rem; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.04em; }
+.event-media-venue-title { font-family: var(--font-cinzel); font-size: 1.5rem; color: #ffffff; margin-top: 0.4rem; line-height: 1.25; text-shadow: 0 2px 8px rgba(0,0,0,0.85); word-wrap: break-word; overflow-wrap: break-word; }
+.event-card { background: #ffffff; border: 1.5px solid var(--border-gold); border-radius: 20px; padding: 2rem; box-shadow: var(--shadow-card); margin-bottom: 1.75rem; word-wrap: break-word; overflow-wrap: break-word; }
+.event-card-title { font-family: var(--font-cinzel); font-size: 1.35rem; color: var(--burgundy-950); margin-bottom: 1.25rem; border-bottom: 1px solid #ebdada; padding-bottom: 0.75rem; }
+.event-specs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1.15rem; margin-bottom: 1.5rem; }
+.event-spec-box { background: #faf7f8; padding: 0.9rem 1rem; border-radius: 12px; border: 1px solid #ebdada; }
+.event-spec-label { font-size: 0.75rem; color: #777; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 0.25rem; }
+.event-spec-value { font-size: 1.02rem; font-weight: 700; color: var(--burgundy-900); word-break: break-word; }
+.event-address-box { background: #fdfaf6; border-left: 4px solid var(--gold-500); padding: 1rem 1.25rem; border-radius: 0 10px 10px 0; margin-bottom: 1.25rem; word-break: break-word; }
+.event-info-subbox { background: #faf7f8; border: 1px solid #ebdada; border-radius: 12px; padding: 1.25rem; margin-top: 1.15rem; word-break: break-word; }
+.event-info-subbox-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+.event-table-responsive { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: 10px; }
+.event-pricing-table { width: 100%; min-width: 480px; border-collapse: collapse; font-size: 0.88rem; text-align: left; }
+.event-pricing-table th { padding: 0.85rem 1rem; background: #faf4f5; color: var(--burgundy-950); border-bottom: 2px solid var(--border-gold); font-weight: 700; font-size: 0.82rem; text-transform: uppercase; }
+.event-pricing-table td { padding: 0.85rem 1rem; border-bottom: 1px solid #ebdada; vertical-align: middle; }
+.event-booking-studio { background: #ffffff; border: 2px solid var(--gold-500); border-radius: 20px; padding: 2rem 1.75rem; box-shadow: 0 15px 35px rgba(43, 7, 13, 0.12); position: sticky; top: 90px; }
+.event-booking-header { text-align: center; margin-bottom: 1.5rem; border-bottom: 1px solid #ebdada; padding-bottom: 1.25rem; }
+.form-row-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 1.15rem; }
+.form-input-control { width: 100%; box-sizing: border-box; padding: 0.68rem 0.85rem; border: 1.5px solid #d8c3c7; border-radius: 10px; font-size: 0.9rem; background: #ffffff; color: var(--text-dark); font-family: inherit; transition: border-color 0.2s ease; }
+.form-input-control:focus { border-color: var(--burgundy-800); outline: none; box-shadow: 0 0 0 3px rgba(107, 15, 26, 0.1); }
+.event-cost-estimate-box { background: linear-gradient(135deg, #fdf6f7 0%, #faecee 100%); border: 1.5px solid var(--border-gold); border-radius: 14px; padding: 1.15rem; margin-bottom: 1.5rem; }
+.voucher-card { background: linear-gradient(135deg, #064E3B 0%, #022c22 100%); border: 2px solid #10B981; border-radius: 20px; padding: 2.5rem 1.75rem; color: #ffffff; margin-bottom: 3rem; box-shadow: 0 15px 40px rgba(6, 78, 59, 0.4); text-align: center; }
+.voucher-details-box { background: rgba(0,0,0,0.3); border: 1px solid rgba(167, 243, 208, 0.3); border-radius: 14px; max-width: 600px; margin: 0 auto 2rem; padding: 1.5rem; text-align: left; font-size: 0.92rem; }
+.voucher-grid-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; }
+
+@media (max-width: 991px) {
+  .event-details-layout { grid-template-columns: 1fr !important; gap: 2rem !important; }
+  .event-booking-studio { position: static !important; top: auto !important; }
+  .event-hero-img { height: 320px !important; }
+}
+
+@media (max-width: 767px) {
+  .event-hero-section { padding: 2.25rem 1rem 1.75rem !important; }
+  .event-hero-title { font-size: 1.5rem !important; line-height: 1.3 !important; }
+  .event-hero-meta { flex-direction: column !important; align-items: center !important; gap: 0.4rem !important; text-align: center !important; font-size: 0.88rem !important; }
+  .event-main-section { padding-top: 1.5rem !important; padding-bottom: 3.5rem !important; }
+  .event-card, .event-booking-studio { padding: 1.35rem 1rem !important; border-radius: 16px !important; }
+  .event-hero-img { height: 240px !important; }
+  .event-media-info { flex-direction: column !important; align-items: flex-start !important; gap: 0.5rem !important; bottom: 1rem !important; left: 1rem !important; right: 1rem !important; }
+  .event-media-venue-title { font-size: 1.25rem !important; }
+  .event-specs-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 0.75rem !important; }
+  .event-spec-box { padding: 0.75rem 0.85rem !important; }
+  .event-spec-value { font-size: 0.9rem !important; }
+  .event-info-subbox-grid { grid-template-columns: 1fr !important; gap: 0.75rem !important; }
+  .form-row-2col { grid-template-columns: 1fr !important; gap: 0.85rem !important; margin-bottom: 0.85rem !important; }
+  .voucher-grid-2col { grid-template-columns: 1fr !important; }
+  .voucher-card { padding: 1.5rem 1rem !important; }
+  .voucher-details-box { padding: 1rem !important; }
+}
+
+@media (max-width: 480px) {
+  .event-hero-section { padding: 2rem 0.75rem 1.5rem !important; }
+  .event-specs-grid { grid-template-columns: 1fr !important; gap: 0.65rem !important; }
+  .event-hero-img { height: 210px !important; }
+  .event-pricing-table { min-width: 420px !important; }
+  .btn-wa-voucher { font-size: 0.95rem !important; padding: 0.85rem 1.25rem !important; width: 100% !important; text-align: center !important; justify-content: center !important; }
+}
+</style>
+
 <!-- Event Header Banner Section -->
-<section class="section page-hero-section" style="padding: 3.5rem 1.5rem 2.5rem;">
+<section class="section page-hero-section event-hero-section">
   <div class="hero-bg-photo" aria-hidden="true" style="opacity: 0.18;"></div>
   <div class="container" style="position: relative; z-index: 2;">
-    <div style="display: flex; gap: 0.6rem; align-items: center; justify-content: center; margin-bottom: 0.85rem; flex-wrap: wrap;">
+    <div class="event-breadcrumb-wrap">
       <a href="<?= BASE_URL ?>/upcoming-exhibitions.php" style="color: var(--gold-300); text-decoration: none; font-size: 0.85rem;">← Back to Exhibitions Calendar</a>
       <span style="color: rgba(255,255,255,0.4);">/</span>
       <span style="background: var(--gold-500); color: #1a0408; font-size: 0.75rem; font-weight: 800; padding: 0.2rem 0.6rem; border-radius: 12px;">📍 <?= e($event['city']) ?></span>
       <span style="background: rgba(255,255,255,0.1); color: #ffffff; font-size: 0.75rem; font-weight: 600; padding: 0.2rem 0.6rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.2);"><?= e($event['event_type']) ?></span>
     </div>
 
-    <h1 style="font-family: var(--font-cinzel); font-size: clamp(1.8rem, 4vw, 2.8rem); color: #ffffff; margin-bottom: 0.75rem; text-align: center; line-height: 1.25;">
+    <h1 class="event-hero-title">
       <?= e($event['title']) ?>
     </h1>
     <div class="festive-divider"><span class="festive-divider-icon">✦</span></div>
 
-    <div style="display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; margin-top: 1rem; font-size: 0.95rem; color: #ffd6df;">
+    <div class="event-hero-meta">
       <div>📍 <strong><?= e($event['venue']) ?></strong>, <?= e($event['city']) ?></div>
       <div>📅 <strong><?= e($event['date_display'] ?? formatDateRange($event['start_date'], $event['end_date'])) ?></strong></div>
       <div>⏰ <strong><?= e($event['timings'] ?? '10:00 AM - 8:00 PM') ?></strong></div>
@@ -330,16 +402,16 @@ require_once __DIR__ . '/includes/header.php';
 </section>
 
 <!-- Main Details & Booking Section -->
-<section class="section" style="padding-top: 3rem; padding-bottom: 5rem;">
+<section class="section event-main-section">
   <div class="container">
 
     <!-- Admin Preview Banner -->
     <?php if ($isAdmin && !in_array($event['status'], ['published', 'active'])): ?>
-      <div style="background: #fef3c7; border: 2px solid #f59e0b; color: #92400e; padding: 1rem 1.5rem; border-radius: 12px; margin-bottom: 2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem;">
+      <div style="background: #fef3c7; border: 2px solid #f59e0b; color: #92400e; padding: 1rem 1.25rem; border-radius: 12px; margin-bottom: 2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem;">
         <div>
           <strong>⚠️ Admin Preview Mode:</strong> This exhibition has status <code style="background:#fde68a; padding: 0.15rem 0.4rem; border-radius: 4px;"><?= e($event['status']) ?></code> and is only visible to logged-in administrators.
         </div>
-        <div style="display: flex; gap: 0.5rem;">
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
           <a href="<?= BASE_URL ?>/admin/event-actions.php?action=publish&id=<?= $event['id'] ?>&csrf_token=<?= csrf_token() ?>" class="btn btn-gold" style="padding: 0.45rem 1rem; font-size: 0.85rem;">
             <span>Publish Live</span>
           </a>
@@ -352,31 +424,31 @@ require_once __DIR__ . '/includes/header.php';
 
     <!-- Booking Success Voucher Modal / Card -->
     <?php if ($bookingSuccess && $confirmedBooking): ?>
-      <div style="background: linear-gradient(135deg, #064E3B 0%, #022c22 100%); border: 2px solid #10B981; border-radius: 20px; padding: 2.5rem 2rem; color: #ffffff; margin-bottom: 3rem; box-shadow: 0 15px 40px rgba(6, 78, 59, 0.4); text-align: center;">
-        <div style="font-size: 3.5rem; margin-bottom: 0.5rem;">🎉</div>
+      <div class="voucher-card">
+        <div style="font-size: 3rem; margin-bottom: 0.5rem;">🎉</div>
         <span class="section-badge badge-gold" style="background: #10B981; color: #ffffff; border-color: #34D399; margin-bottom: 0.75rem;">Booking Request Registered</span>
-        <h2 style="font-family: var(--font-cinzel); font-size: 2rem; color: #A7F3D0; margin-bottom: 0.5rem;">Stall Request Confirmed!</h2>
-        <p style="color: #D1FAE5; max-width: 650px; margin: 0 auto 1.5rem; font-size: 1.05rem;">
+        <h2 style="font-family: var(--font-cinzel); font-size: clamp(1.4rem, 3.5vw, 2rem); color: #A7F3D0; margin-bottom: 0.5rem;">Stall Request Confirmed!</h2>
+        <p style="color: #D1FAE5; max-width: 650px; margin: 0 auto 1.5rem; font-size: 1rem; line-height: 1.5;">
           Thank you, <strong><?= e($confirmedBooking['customer_name']) ?></strong>! Your request for <strong><?= e($confirmedBooking['stall_type']) ?></strong> (Ref: <code><?= e($confirmedBooking['booking_number']) ?></code>) has been recorded in our system.
         </p>
 
         <!-- Voucher Details Box -->
-        <div style="background: rgba(0,0,0,0.3); border: 1px solid rgba(167, 243, 208, 0.3); border-radius: 14px; max-width: 600px; margin: 0 auto 2rem; padding: 1.5rem; text-align: left; font-size: 0.92rem;">
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+        <div class="voucher-details-box">
+          <div class="voucher-grid-2col">
             <div><strong>Exhibition:</strong><br><span style="color: #A7F3D0;"><?= e($confirmedBooking['event_title']) ?></span></div>
             <div><strong>Venue:</strong><br><span style="color: #A7F3D0;"><?= e($confirmedBooking['event_venue']) ?>, <?= e($confirmedBooking['event_city']) ?></span></div>
             <div><strong>Dates:</strong><br><?= e($confirmedBooking['start_date']) ?> to <?= e($confirmedBooking['end_date']) ?> (<?= $confirmedBooking['days_count'] ?> Days)</div>
             <div><strong>Stall Count:</strong><br><?= e($confirmedBooking['stalls_count']) ?> Stall(s)</div>
             <div><strong>Rate / Day:</strong><br>₹<?= number_format($confirmedBooking['price_per_day'], 0) ?></div>
-            <div><strong>Total Estimated Amount:</strong><br><span style="color: #FCD34D; font-size: 1.15rem; font-weight: 800;">₹<?= number_format($confirmedBooking['total_amount'], 0) ?></span></div>
+            <div><strong>Total Estimated:</strong><br><span style="color: #FCD34D; font-size: 1.15rem; font-weight: 800;">₹<?= number_format($confirmedBooking['total_amount'], 0) ?></span></div>
           </div>
         </div>
 
-        <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
-          <a href="<?= $waRedirectUrl ?>" target="_blank" rel="noopener noreferrer" class="btn" style="background: #25D366; color: #ffffff; font-size: 1.1rem; padding: 0.9rem 2rem; font-weight: 700; box-shadow: 0 8px 24px rgba(37, 211, 102, 0.4);">
-            <span>💬 Confirm on WhatsApp Now (9811175057)</span>
+        <div style="display: flex; justify-content: center; gap: 0.85rem; flex-wrap: wrap;">
+          <a href="<?= $waRedirectUrl ?>" target="_blank" rel="noopener noreferrer" class="btn btn-wa-voucher" style="background: #25D366; color: #ffffff; font-size: 1rem; padding: 0.85rem 1.75rem; font-weight: 700; box-shadow: 0 8px 24px rgba(37, 211, 102, 0.4);">
+            <span>💬 Confirm on WhatsApp (9811175057)</span>
           </a>
-          <a href="<?= BASE_URL ?>/upcoming-exhibitions.php" class="btn btn-outline-white">
+          <a href="<?= BASE_URL ?>/upcoming-exhibitions.php" class="btn btn-outline-white" style="font-size: 0.95rem; padding: 0.85rem 1.5rem;">
             <span>Explore More Exhibitions</span>
           </a>
         </div>
@@ -397,74 +469,74 @@ require_once __DIR__ . '/includes/header.php';
       </div>
     <?php endif; ?>
 
-    <!-- Main Two-Column Layout -->
-    <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 3rem; align-items: start;">
+    <!-- Main Two-Column Layout (Fully Responsive) -->
+    <div class="event-details-layout">
 
       <!-- Left Column: Event Overview & Excel Specifications -->
       <div>
         <!-- Hero Event Image with Badges -->
-        <div style="position: relative; border-radius: 20px; overflow: hidden; border: 1.5px solid var(--border-gold); box-shadow: var(--shadow-card); margin-bottom: 2rem;">
-          <img src="<?= e($img) ?>" alt="<?= e($event['title']) ?>" style="width: 100%; height: 380px; object-fit: cover; display: block;" />
-          <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(20,2,5,0.7) 100%);"></div>
+        <div class="event-hero-media">
+          <img src="<?= e($img) ?>" alt="<?= e($event['title']) ?>" class="event-hero-img" loading="eager" />
+          <div class="event-media-overlay"></div>
 
-          <div style="position: absolute; bottom: 1.25rem; left: 1.5rem; right: 1.5rem; display: flex; justify-content: space-between; align-items: flex-end; color: #ffffff;">
+          <div class="event-media-info">
             <div>
-              <span style="background: var(--gold-500); color: #1a0408; font-size: 0.8rem; font-weight: 800; padding: 0.25rem 0.75rem; border-radius: 20px;">
+              <span class="event-category-badge">
                 <?= e($event['category']) ?>
               </span>
-              <h2 style="font-family: var(--font-cinzel); font-size: 1.6rem; color: #ffffff; margin-top: 0.4rem; text-shadow: 0 2px 8px rgba(0,0,0,0.8);">
+              <h2 class="event-media-venue-title">
                 <?= e($event['venue']) ?>
               </h2>
             </div>
 
             <!-- Availability Status Pill -->
-            <div style="text-align: right;">
+            <div>
               <?php if ($event['available_stalls'] <= 0): ?>
-                <span style="background: #DC2626; color: #ffffff; padding: 0.4rem 0.85rem; border-radius: 20px; font-weight: 700; font-size: 0.85rem;">Sold Out</span>
+                <span style="background: #DC2626; color: #ffffff; padding: 0.4rem 0.85rem; border-radius: 20px; font-weight: 700; font-size: 0.82rem; white-space: nowrap; display: inline-block;">Sold Out</span>
               <?php elseif ($event['available_stalls'] <= 5): ?>
-                <span style="background: #D97706; color: #ffffff; padding: 0.4rem 0.85rem; border-radius: 20px; font-weight: 700; font-size: 0.85rem;">🔥 <?= $event['available_stalls'] ?> Stalls Left</span>
+                <span style="background: #D97706; color: #ffffff; padding: 0.4rem 0.85rem; border-radius: 20px; font-weight: 700; font-size: 0.82rem; white-space: nowrap; display: inline-block;">🔥 <?= $event['available_stalls'] ?> Stalls Left</span>
               <?php else: ?>
-                <span style="background: #059669; color: #ffffff; padding: 0.4rem 0.85rem; border-radius: 20px; font-weight: 700; font-size: 0.85rem;">✅ <?= $event['available_stalls'] ?> Stalls Available</span>
+                <span style="background: #059669; color: #ffffff; padding: 0.4rem 0.85rem; border-radius: 20px; font-weight: 700; font-size: 0.82rem; white-space: nowrap; display: inline-block;">✅ <?= $event['available_stalls'] ?> Available</span>
               <?php endif; ?>
             </div>
           </div>
         </div>
 
         <!-- Venue & Facility Highlights (Excel Grounding) -->
-        <div style="background: #ffffff; border: 1.5px solid var(--border-gold); border-radius: 20px; padding: 2rem; box-shadow: var(--shadow-card); margin-bottom: 2rem;">
-          <h3 style="font-family: var(--font-cinzel); font-size: 1.4rem; color: var(--burgundy-950); margin-bottom: 1.25rem; border-bottom: 1px solid #ebdada; padding-bottom: 0.75rem;">
+        <div class="event-card">
+          <h3 class="event-card-title">
             Exhibition Overview &amp; Specifications
           </h3>
 
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.25rem; margin-bottom: 1.5rem;">
-            <div style="background: #faf7f8; padding: 1rem; border-radius: 12px; border: 1px solid #ebdada;">
-              <div style="font-size: 0.8rem; color: #888;">Expected Footfall</div>
-              <div style="font-size: 1.05rem; font-weight: 700; color: var(--burgundy-900);">👥 <?= e($event['footfall'] ?? 'High Density Crowd') ?></div>
+          <div class="event-specs-grid">
+            <div class="event-spec-box">
+              <div class="event-spec-label">Expected Footfall</div>
+              <div class="event-spec-value">👥 <?= e($event['footfall'] ?? 'High Density Crowd') ?></div>
             </div>
 
-            <div style="background: #faf7f8; padding: 1rem; border-radius: 12px; border: 1px solid #ebdada;">
-              <div style="font-size: 0.8rem; color: #888;">Gentry Profile</div>
-              <div style="font-size: 1.05rem; font-weight: 700; color: var(--burgundy-900);">👑 <?= e($event['gentry'] ?? 'Premium Class') ?></div>
+            <div class="event-spec-box">
+              <div class="event-spec-label">Gentry Profile</div>
+              <div class="event-spec-value">👑 <?= e($event['gentry'] ?? 'Premium Class') ?></div>
             </div>
 
-            <div style="background: #faf7f8; padding: 1rem; border-radius: 12px; border: 1px solid #ebdada;">
-              <div style="font-size: 0.8rem; color: #888;">Environment Setup</div>
-              <div style="font-size: 1.05rem; font-weight: 700; color: var(--burgundy-900);">❄️ <?= e($event['location_type'] ?? 'Indoors / Atrium') ?></div>
+            <div class="event-spec-box">
+              <div class="event-spec-label">Environment Setup</div>
+              <div class="event-spec-value">❄️ <?= e($event['location_type'] ?? 'Indoors / Atrium') ?></div>
             </div>
 
-            <div style="background: #faf7f8; padding: 1rem; border-radius: 12px; border: 1px solid #ebdada;">
-              <div style="font-size: 0.8rem; color: #888;">Stall Allocation</div>
-              <div style="font-size: 1.05rem; font-weight: 700; color: var(--burgundy-900);">📐 <?= e($event['layout_type'] ?? 'First Come First Serve') ?></div>
+            <div class="event-spec-box">
+              <div class="event-spec-label">Stall Allocation</div>
+              <div class="event-spec-value">📐 <?= e($event['layout_type'] ?? 'First Come First Serve') ?></div>
             </div>
 
-            <div style="background: #faf7f8; padding: 1rem; border-radius: 12px; border: 1px solid #ebdada;">
-              <div style="font-size: 0.8rem; color: #888;">Event Timings</div>
-              <div style="font-size: 1.05rem; font-weight: 700; color: var(--burgundy-900);">⏰ <?= e($event['timings'] ?? '10:00 AM - 8:00 PM') ?></div>
+            <div class="event-spec-box">
+              <div class="event-spec-label">Event Timings</div>
+              <div class="event-spec-value">⏰ <?= e($event['timings'] ?? '10:00 AM - 8:00 PM') ?></div>
             </div>
 
-            <div style="background: #faf7f8; padding: 1rem; border-radius: 12px; border: 1px solid #ebdada;">
-              <div style="font-size: 0.8rem; color: #888;">Industrial Fans</div>
-              <div style="font-size: 1.05rem; font-weight: 700; color: var(--burgundy-900);">💨 <?= e($event['fan_charge'] ?? '₹300 / Day') ?></div>
+            <div class="event-spec-box">
+              <div class="event-spec-label">Industrial Fans</div>
+              <div class="event-spec-value">💨 <?= e($event['fan_charge'] ?? '₹300 / Day') ?></div>
             </div>
           </div>
 
@@ -475,26 +547,26 @@ require_once __DIR__ . '/includes/header.php';
           <?php endif; ?>
 
           <!-- Address & Map Link -->
-          <div style="background: #fdfaf6; border-left: 4px solid var(--gold-500); padding: 1rem 1.25rem; border-radius: 0 10px 10px 0;">
+          <div class="event-address-box">
             <div style="font-size: 0.85rem; font-weight: 700; color: var(--burgundy-900); margin-bottom: 0.25rem;">📍 Complete Address:</div>
-            <div style="font-size: 0.92rem; color: #555;">
+            <div style="font-size: 0.92rem; color: #555; line-height: 1.5;">
               <?= e($event['venue']) ?>, <?= !empty($event['address']) ? e($event['address']) . ', ' : '' ?><?= e($event['city']) ?> (<?= e($event['state']) ?>) <?= !empty($event['pincode']) ? ' - ' . e($event['pincode']) : '' ?>
             </div>
           </div>
 
           <?php if (!empty($event['stall_sizes']) || !empty($event['facilities'])): ?>
-            <div style="background: #faf7f8; border: 1px solid #ebdada; border-radius: 12px; padding: 1.25rem; margin-top: 1.25rem;">
-              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem;">
+            <div class="event-info-subbox">
+              <div class="event-info-subbox-grid">
                 <?php if (!empty($event['stall_sizes'])): ?>
                   <div>
                     <div style="font-size: 0.8rem; font-weight: 700; color: var(--burgundy-900); margin-bottom: 0.25rem;">🎪 Stall Dimensions &amp; Sizes:</div>
-                    <div style="font-size: 0.88rem; color: #444;"><?= e($event['stall_sizes']) ?></div>
+                    <div style="font-size: 0.88rem; color: #444; line-height: 1.5;"><?= e($event['stall_sizes']) ?></div>
                   </div>
                 <?php endif; ?>
                 <?php if (!empty($event['facilities'])): ?>
                   <div>
                     <div style="font-size: 0.8rem; font-weight: 700; color: var(--burgundy-900); margin-bottom: 0.25rem;">⚡ Amenities &amp; Facilities:</div>
-                    <div style="font-size: 0.88rem; color: #444;"><?= e($event['facilities']) ?></div>
+                    <div style="font-size: 0.88rem; color: #444; line-height: 1.5;"><?= e($event['facilities']) ?></div>
                   </div>
                 <?php endif; ?>
               </div>
@@ -502,17 +574,17 @@ require_once __DIR__ . '/includes/header.php';
           <?php endif; ?>
 
           <?php if (!empty($event['booking_instructions']) || !empty($event['terms_conditions'])): ?>
-            <div style="background: #fdfaf6; border: 1px solid #ebdada; border-radius: 12px; padding: 1.25rem; margin-top: 1rem;">
+            <div class="event-info-subbox" style="margin-top: 1rem; background: #fdfaf6;">
               <?php if (!empty($event['booking_instructions'])): ?>
                 <div style="margin-bottom: 0.75rem;">
                   <div style="font-size: 0.8rem; font-weight: 700; color: var(--burgundy-900); margin-bottom: 0.2rem;">📋 Setup Guidelines:</div>
-                  <div style="font-size: 0.86rem; color: #555;"><?= e($event['booking_instructions']) ?></div>
+                  <div style="font-size: 0.86rem; color: #555; line-height: 1.5;"><?= e($event['booking_instructions']) ?></div>
                 </div>
               <?php endif; ?>
               <?php if (!empty($event['terms_conditions'])): ?>
                 <div>
                   <div style="font-size: 0.8rem; font-weight: 700; color: var(--burgundy-900); margin-bottom: 0.2rem;">⚖️ Terms &amp; Stall Allocation Rules:</div>
-                  <div style="font-size: 0.86rem; color: #555;"><?= e($event['terms_conditions']) ?></div>
+                  <div style="font-size: 0.86rem; color: #555; line-height: 1.5;"><?= e($event['terms_conditions']) ?></div>
                 </div>
               <?php endif; ?>
             </div>
@@ -520,34 +592,34 @@ require_once __DIR__ . '/includes/header.php';
         </div>
 
         <!-- Stall Pricing Matrix Table (Excel Grounded) -->
-        <div style="background: #ffffff; border: 1.5px solid var(--border-gold); border-radius: 20px; padding: 2rem; box-shadow: var(--shadow-card);">
-          <h3 style="font-family: var(--font-cinzel); font-size: 1.35rem; color: var(--burgundy-950); margin-bottom: 1rem;">
+        <div class="event-card">
+          <h3 class="event-card-title">
             Stall Options &amp; Inventory Rates
           </h3>
-          <div style="overflow-x: auto;">
-            <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem; text-align: left;">
+          <div class="event-table-responsive">
+            <table class="event-pricing-table">
               <thead>
-                <tr style="background: #faf4f5; border-bottom: 2px solid var(--border-gold);">
-                  <th style="padding: 0.85rem 1rem; color: var(--burgundy-950);">Stall Configuration</th>
-                  <th style="padding: 0.85rem 1rem; color: var(--burgundy-950);">Equipment Included</th>
-                  <th style="padding: 0.85rem 1rem; color: var(--burgundy-950); text-align: right;">Rate / Day</th>
+                <tr>
+                  <th>Stall Configuration</th>
+                  <th>Equipment Included</th>
+                  <th style="text-align: right;">Rate / Day</th>
                 </tr>
               </thead>
               <tbody>
                 <?php foreach ($stallOptions as $opt): ?>
-                  <tr style="border-bottom: 1px solid #ebdada;">
-                    <td style="padding: 0.85rem 1rem; font-weight: 600; color: var(--burgundy-900);"><?= e($opt['name']) ?></td>
-                    <td style="padding: 0.85rem 1rem; color: #666; font-size: 0.82rem;"><?= e($opt['desc']) ?></td>
-                    <td style="padding: 0.85rem 1rem; font-weight: 800; color: var(--burgundy-950); text-align: right; font-family: var(--font-cinzel);">
+                  <tr>
+                    <td style="font-weight: 600; color: var(--burgundy-900);"><?= e($opt['name']) ?></td>
+                    <td style="color: #666; font-size: 0.82rem;"><?= e($opt['desc']) ?></td>
+                    <td style="font-weight: 800; color: var(--burgundy-950); text-align: right; font-family: var(--font-cinzel);">
                       <?= formatPrice($opt['price']) ?>
                     </td>
                   </tr>
                 <?php endforeach; ?>
                 <?php if (!empty($event['price_promotional'])): ?>
-                  <tr style="border-bottom: 1px solid #ebdada;">
-                    <td style="padding: 0.85rem 1rem; font-weight: 600; color: var(--burgundy-900);">Promotional Brand Stall</td>
-                    <td style="padding: 0.85rem 1rem; color: #666; font-size: 0.82rem;">For corporate sampling, real-estate kiosks, edtech &amp; brand activation</td>
-                    <td style="padding: 0.85rem 1rem; font-weight: 800; color: var(--burgundy-950); text-align: right; font-family: var(--font-cinzel);">
+                  <tr>
+                    <td style="font-weight: 600; color: var(--burgundy-900);">Promotional Brand Stall</td>
+                    <td style="color: #666; font-size: 0.82rem;">Corporate sampling, kiosks &amp; brand activation</td>
+                    <td style="font-weight: 800; color: var(--burgundy-950); text-align: right; font-family: var(--font-cinzel);">
                       <?= e($event['price_promotional']) ?>
                     </td>
                   </tr>
@@ -560,11 +632,11 @@ require_once __DIR__ . '/includes/header.php';
 
       <!-- Right Column: Interactive Live Stall Booking Studio & Calculator -->
       <div>
-        <div style="background: #ffffff; border: 2px solid var(--gold-500); border-radius: 20px; padding: 2rem 1.75rem; box-shadow: 0 15px 35px rgba(43, 7, 13, 0.12); position: sticky; top: 90px;" id="booking-studio">
+        <div class="event-booking-studio" id="booking-studio">
           
-          <div style="text-align: center; margin-bottom: 1.5rem; border-bottom: 1px solid #ebdada; padding-bottom: 1.25rem;">
+          <div class="event-booking-header">
             <span class="section-badge badge-gold" style="font-size: 0.72rem;">Live Booking Studio</span>
-            <h3 style="font-family: var(--font-cinzel); font-size: 1.5rem; color: var(--burgundy-950); margin-top: 0.35rem;">
+            <h3 style="font-family: var(--font-cinzel); font-size: 1.45rem; color: var(--burgundy-950); margin-top: 0.35rem;">
               Reserve Your Stall Now
             </h3>
             <p style="font-size: 0.85rem; color: #666; margin-top: 0.25rem;">
@@ -592,11 +664,11 @@ require_once __DIR__ . '/includes/header.php';
               <input type="hidden" name="csrf_token" value="<?= csrf_token() ?>" />
 
               <!-- Stall Type Selection -->
-              <div style="margin-bottom: 1.25rem;">
+              <div style="margin-bottom: 1.15rem;">
                 <label style="display: block; font-size: 0.88rem; font-weight: 700; color: var(--burgundy-950); margin-bottom: 0.4rem;">
                   1. Select Stall Configuration: <span style="color: #dc2626;">*</span>
                 </label>
-                <select name="stall_type" id="booking_stall_type" style="width: 100%; padding: 0.75rem 0.85rem; border: 1.5px solid #d8c3c7; border-radius: 10px; font-size: 0.92rem; background: #fff;" required>
+                <select name="stall_type" id="booking_stall_type" class="form-input-control" required>
                   <?php foreach ($stallOptions as $idx => $opt): ?>
                     <option value="<?= e($opt['name']) ?>" data-price="<?= $opt['price'] ?>" <?= $idx === 0 ? 'selected' : '' ?>>
                       <?= e($opt['name']) ?> — <?= formatPrice($opt['price']) ?> / day
@@ -605,8 +677,8 @@ require_once __DIR__ . '/includes/header.php';
                 </select>
               </div>
 
-              <!-- Date Selection -->
-              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 1.25rem;">
+              <!-- Date Selection (Responsive Grid) -->
+              <div class="form-row-2col">
                 <div>
                   <label style="display: block; font-size: 0.82rem; font-weight: 700; color: var(--burgundy-950); margin-bottom: 0.35rem;">
                     Start Date: <span style="color: #dc2626;">*</span>
@@ -615,7 +687,7 @@ require_once __DIR__ . '/includes/header.php';
                          value="<?= e($event['start_date']) ?>" 
                          min="<?= e($event['start_date']) ?>" 
                          max="<?= e($event['end_date']) ?>" 
-                         style="width: 100%; padding: 0.65rem 0.75rem; border: 1.5px solid #d8c3c7; border-radius: 10px; font-size: 0.88rem;" required />
+                         class="form-input-control" required />
                 </div>
                 <div>
                   <label style="display: block; font-size: 0.82rem; font-weight: 700; color: var(--burgundy-950); margin-bottom: 0.35rem;">
@@ -625,17 +697,17 @@ require_once __DIR__ . '/includes/header.php';
                          value="<?= e($event['end_date']) ?>" 
                          min="<?= e($event['start_date']) ?>" 
                          max="<?= e($event['end_date']) ?>" 
-                         style="width: 100%; padding: 0.65rem 0.75rem; border: 1.5px solid #d8c3c7; border-radius: 10px; font-size: 0.88rem;" required />
+                         class="form-input-control" required />
                 </div>
               </div>
 
-              <!-- Stalls Count & Addons -->
-              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 1.25rem; align-items: end;">
+              <!-- Stalls Count & Addons (Responsive Grid) -->
+              <div class="form-row-2col" style="align-items: end;">
                 <div>
                   <label style="display: block; font-size: 0.82rem; font-weight: 700; color: var(--burgundy-950); margin-bottom: 0.35rem;">
                     Number of Stalls:
                   </label>
-                  <select name="stalls_count" id="booking_stalls_count" style="width: 100%; padding: 0.65rem 0.75rem; border: 1.5px solid #d8c3c7; border-radius: 10px; font-size: 0.88rem; background: #fff;">
+                  <select name="stalls_count" id="booking_stalls_count" class="form-input-control">
                     <?php for ($i = 1; $i <= min(5, $event['available_stalls']); $i++): ?>
                       <option value="<?= $i ?>"><?= $i ?> Stall<?= $i > 1 ? 's' : '' ?></option>
                     <?php endfor; ?>
@@ -644,14 +716,14 @@ require_once __DIR__ . '/includes/header.php';
 
                 <div style="padding-bottom: 0.35rem;">
                   <label style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.84rem; color: var(--burgundy-950); cursor: pointer;">
-                    <input type="checkbox" name="addon_fan" id="booking_addon_fan" value="1" style="width: 18px; height: 18px; accent-color: var(--burgundy-800);" />
+                    <input type="checkbox" name="addon_fan" id="booking_addon_fan" value="1" style="width: 18px; height: 18px; accent-color: var(--burgundy-800); flex-shrink: 0;" />
                     <span>Industrial Fan (+₹300/day)</span>
                   </label>
                 </div>
               </div>
 
               <!-- Live Automatic Calculation Summary Box -->
-              <div style="background: linear-gradient(135deg, #fdf6f7 0%, #faecee 100%); border: 1.5px solid var(--border-gold); border-radius: 14px; padding: 1.1rem; margin-bottom: 1.5rem;">
+              <div class="event-cost-estimate-box">
                 <div style="font-size: 0.8rem; font-weight: 700; text-transform: uppercase; color: var(--burgundy-800); margin-bottom: 0.6rem; letter-spacing: 0.05em;">
                   Live Cost Estimate
                 </div>
@@ -673,38 +745,35 @@ require_once __DIR__ . '/includes/header.php';
                 </div>
               </div>
 
-              <!-- Exhibitor Personal / Business Information -->
+              <!-- Exhibitor Personal / Business Information (Responsive Grids) -->
               <div style="margin-bottom: 1rem;">
                 <label style="display: block; font-size: 0.82rem; font-weight: 700; color: var(--burgundy-950); margin-bottom: 0.3rem;">
                   Your Full Name: <span style="color: #dc2626;">*</span>
                 </label>
-                <input type="text" name="customer_name" placeholder="e.g. Pooja Sharma" 
-                       style="width: 100%; padding: 0.65rem 0.75rem; border: 1.5px solid #d8c3c7; border-radius: 10px; font-size: 0.9rem;" required />
+                <input type="text" name="customer_name" placeholder="e.g. Pooja Sharma" class="form-input-control" required />
               </div>
 
-              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 1rem;">
+              <div class="form-row-2col">
                 <div>
                   <label style="display: block; font-size: 0.82rem; font-weight: 700; color: var(--burgundy-950); margin-bottom: 0.3rem;">
                     Brand / Business:
                   </label>
-                  <input type="text" name="business_name" placeholder="e.g. Zoya Jewels" 
-                         style="width: 100%; padding: 0.65rem 0.75rem; border: 1.5px solid #d8c3c7; border-radius: 10px; font-size: 0.9rem;" />
+                  <input type="text" name="business_name" placeholder="e.g. Zoya Jewels" class="form-input-control" />
                 </div>
                 <div>
                   <label style="display: block; font-size: 0.82rem; font-weight: 700; color: var(--burgundy-950); margin-bottom: 0.3rem;">
                     Phone (10 Digits): <span style="color: #dc2626;">*</span>
                   </label>
-                  <input type="tel" name="mobile" placeholder="98111XXXXX" pattern="[0-9]{10}" 
-                         style="width: 100%; padding: 0.65rem 0.75rem; border: 1.5px solid #d8c3c7; border-radius: 10px; font-size: 0.9rem;" required />
+                  <input type="tel" name="mobile" placeholder="98111XXXXX" pattern="[0-9]{10}" class="form-input-control" required />
                 </div>
               </div>
 
-              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 1rem;">
+              <div class="form-row-2col">
                 <div>
                   <label style="display: block; font-size: 0.82rem; font-weight: 700; color: var(--burgundy-950); margin-bottom: 0.3rem;">
                     Product Category:
                   </label>
-                  <select name="category_name" style="width: 100%; padding: 0.65rem 0.75rem; border: 1.5px solid #d8c3c7; border-radius: 10px; font-size: 0.88rem; background: #fff;">
+                  <select name="category_name" class="form-input-control">
                     <option value="Jewellery & Accessories">Jewellery &amp; Accessories</option>
                     <option value="Apparel & Footwear">Apparel &amp; Footwear</option>
                     <option value="Handbags">Handbags</option>
@@ -723,8 +792,7 @@ require_once __DIR__ . '/includes/header.php';
                   <label style="display: block; font-size: 0.82rem; font-weight: 700; color: var(--burgundy-950); margin-bottom: 0.3rem;">
                     Email Address:
                   </label>
-                  <input type="email" name="email" placeholder="pooja@example.com" 
-                         style="width: 100%; padding: 0.65rem 0.75rem; border: 1.5px solid #d8c3c7; border-radius: 10px; font-size: 0.9rem;" />
+                  <input type="email" name="email" placeholder="pooja@example.com" class="form-input-control" />
                 </div>
               </div>
 
@@ -732,8 +800,7 @@ require_once __DIR__ . '/includes/header.php';
                 <label style="display: block; font-size: 0.82rem; font-weight: 700; color: var(--burgundy-950); margin-bottom: 0.3rem;">
                   Special Notes / Corner Preference:
                 </label>
-                <textarea name="notes" rows="2" placeholder="e.g. Need corner stall near entrance, bringing 1 extra display rack..." 
-                          style="width: 100%; padding: 0.65rem 0.75rem; border: 1.5px solid #d8c3c7; border-radius: 10px; font-size: 0.88rem;"></textarea>
+                <textarea name="notes" rows="2" placeholder="e.g. Need corner stall near entrance, bringing 1 extra display rack..." class="form-input-control"></textarea>
               </div>
 
               <!-- Submit Buttons -->
