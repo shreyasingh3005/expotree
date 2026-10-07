@@ -54,7 +54,7 @@ const exhibitionsData = [
     venue: "Radisson Blu Grand Ballroom & Lawns",
     timing: "11:00 AM – 9:00 PM",
     expectedFootfall: "15,000+ Visitors",
-    image: "https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?auto=format&fit=crop&w=800&q=80",
+    image: "https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?auto=format&fit=crop&w=800&q=80",
     tagline: "Wedding & Festive Gifting",
     highlights: ["Apparel & Footwear", "Wooden Toys", "Skincare & Perfumes", "Food Court"]
   },
@@ -142,7 +142,7 @@ const galleryData = [
     category: "crowd",
     title: "Vibrant Shopper Footfall",
     sub: "DLF Mall of India, Noida",
-    src: "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1200&q=80"
+    src: "https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?auto=format&fit=crop&w=1200&q=80"
   },
   {
     category: "products",
@@ -190,7 +190,7 @@ const galleryData = [
     category: "products",
     title: "Mystic Tarot & Healing Crystals",
     sub: "Spiritual Wellness Corner",
-    src: "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=1200&q=80"
+    src: "https://images.unsplash.com/photo-1633511090164-b43840ea1607?auto=format&fit=crop&w=1200&q=80"
   },
   {
     category: "stalls",
@@ -225,51 +225,50 @@ document.addEventListener("DOMContentLoaded", () => {
    ========================================================================== */
 function initNavbar() {
   const header = document.querySelector(".main-header");
-  const mobileToggle = document.querySelector(".mobile-menu-toggle");
-  const navMenu = document.querySelector(".nav-menu");
-  const navLinks = document.querySelectorAll(".nav-link");
-
-  // Create or retrieve mobile backdrop
-  let backdrop = document.querySelector(".mobile-nav-backdrop");
-  if (!backdrop) {
-    backdrop = document.createElement("div");
-    backdrop.className = "mobile-nav-backdrop";
-    document.body.appendChild(backdrop);
-  }
+  const mobileToggle = document.getElementById("mobile-toggle-btn") || document.querySelector(".mobile-menu-toggle");
+  const drawer = document.getElementById("mobile-nav-drawer") || document.querySelector(".mobile-nav-drawer");
+  const backdrop = document.getElementById("mobile-nav-backdrop") || document.querySelector(".mobile-nav-backdrop");
+  const closeBtn = document.getElementById("drawer-close-btn") || document.querySelector(".drawer-close-btn");
+  const drawerLinks = document.querySelectorAll(".drawer-link, .nav-link");
 
   function openMenu() {
-    navMenu?.classList.add("mobile-open");
+    drawer?.classList.add("active");
     backdrop?.classList.add("active");
-    mobileToggle?.classList.add("is-active");
     mobileToggle?.setAttribute("aria-expanded", "true");
     document.body.classList.add("nav-drawer-open");
   }
 
   function closeMenu() {
-    navMenu?.classList.remove("mobile-open");
+    drawer?.classList.remove("active");
     backdrop?.classList.remove("active");
-    mobileToggle?.classList.remove("is-active");
     mobileToggle?.setAttribute("aria-expanded", "false");
     document.body.classList.remove("nav-drawer-open");
   }
 
   mobileToggle?.addEventListener("click", (e) => {
     e.stopPropagation();
-    if (navMenu?.classList.contains("mobile-open")) {
+    if (drawer?.classList.contains("active")) {
       closeMenu();
     } else {
       openMenu();
     }
   });
 
+  closeBtn?.addEventListener("click", (e) => {
+    e.stopPropagation();
+    closeMenu();
+  });
+
   backdrop?.addEventListener("click", closeMenu);
 
-  navLinks.forEach(link => {
-    link.addEventListener("click", closeMenu);
+  drawerLinks.forEach(link => {
+    link.addEventListener("click", () => {
+      closeMenu();
+    });
   });
 
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && navMenu?.classList.contains("mobile-open")) {
+    if (e.key === "Escape" && drawer?.classList.contains("active")) {
       closeMenu();
     }
   });
@@ -310,29 +309,88 @@ function initAudienceToggle() {
 function initUpcomingEvents() {
   const container = document.getElementById("events-grid-container");
   const filterBtns = document.querySelectorAll(".filter-btn");
+  const searchInput = document.getElementById("home-event-search");
+  const sortSelect = document.getElementById("home-event-sort");
 
-  function renderEvents(filterCity = "all") {
+  const eventsList = (window.EXPO_EVENTS && window.EXPO_EVENTS.length > 0) ? window.EXPO_EVENTS : exhibitionsData;
+
+  let currentCity = "all";
+
+  function renderEvents() {
     if (!container) return;
 
-    const filtered = filterCity === "all" 
-      ? exhibitionsData 
-      : exhibitionsData.filter(e => e.city.toLowerCase() === filterCity.toLowerCase());
+    let filtered = [...eventsList];
 
-    container.innerHTML = filtered.map(item => `
-      <div class="event-card" data-city="${item.city.toLowerCase()}">
+    // City Filter
+    if (currentCity !== "all") {
+      filtered = filtered.filter(e => (e.city || "").toLowerCase() === currentCity.toLowerCase());
+    }
+
+    // Search Query
+    const query = searchInput?.value?.trim().toLowerCase();
+    if (query) {
+      filtered = filtered.filter(e => 
+        (e.title || "").toLowerCase().includes(query) ||
+        (e.venue || "").toLowerCase().includes(query) ||
+        (e.city || "").toLowerCase().includes(query) ||
+        (e.category || "").toLowerCase().includes(query)
+      );
+    }
+
+    // Sort
+    const sortVal = sortSelect?.value || "date_asc";
+    if (sortVal === "price_asc") {
+      filtered.sort((a, b) => (a.rawMinPrice || 4000) - (b.rawMinPrice || 4000));
+    } else if (sortVal === "price_desc") {
+      filtered.sort((a, b) => (b.rawMinPrice || 4000) - (a.rawMinPrice || 4000));
+    } else if (sortVal === "stalls") {
+      filtered.sort((a, b) => (b.availableStalls || 0) - (a.availableStalls || 0));
+    } else {
+      // date_asc
+      filtered.sort((a, b) => (a.startDate || "").localeCompare(b.startDate || ""));
+    }
+
+    if (filtered.length === 0) {
+      container.innerHTML = `
+        <div style="grid-column: 1 / -1; text-align: center; padding: 3.5rem 1.5rem; background: #ffffff; border-radius: 16px; border: 1.5px dashed var(--border-gold);">
+          <div style="font-size: 2.5rem; margin-bottom: 0.75rem;">🎪</div>
+          <h4 style="font-family: var(--font-cinzel); color: var(--burgundy-900); font-size: 1.3rem; margin-bottom: 0.35rem;">No Exhibitions Found</h4>
+          <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.25rem;">Try adjusting your city filter or search keywords.</p>
+          <button class="btn btn-outline-gold" onclick="document.getElementById('home-event-search').value=''; document.querySelector('.filter-btn[data-city=all]')?.click();">Reset Filters</button>
+        </div>
+      `;
+      return;
+    }
+
+    container.innerHTML = filtered.map(item => {
+      const availStalls = item.availableStalls !== undefined ? item.availableStalls : 15;
+      const stallsBadge = availStalls <= 0 
+        ? `<span style="background: #fee2e2; color: #dc2626; font-size: 0.75rem; font-weight: 700; padding: 0.2rem 0.6rem; border-radius: 12px;">❌ Sold Out</span>`
+        : (availStalls <= 5 
+            ? `<span style="background: #fef3c7; color: #d97706; font-size: 0.75rem; font-weight: 700; padding: 0.2rem 0.6rem; border-radius: 12px;">⚡ Only ${availStalls} Stalls Left</span>`
+            : `<span style="background: #d1fae5; color: #065f46; font-size: 0.75rem; font-weight: 700; padding: 0.2rem 0.6rem; border-radius: 12px;">✅ ${availStalls} Stalls Open</span>`);
+
+      return `
+      <div class="event-card" data-city="${(item.city || '').toLowerCase()}">
         <div class="event-card-header">
           <img src="${item.image}" alt="${item.title}" class="event-card-img" loading="lazy" />
           <div class="event-card-overlay"></div>
           <div class="event-date-badge">
-            <div class="event-date-day">${item.date.day}</div>
-            <div class="event-date-month">${item.date.month}</div>
+            <div class="event-date-day">${item.date ? item.date.day : ''}</div>
+            <div class="event-date-month">${item.date ? item.date.month : ''}</div>
           </div>
-          <div class="event-city-badge">${item.city}</div>
+          <div class="event-city-badge">📍 ${item.city}</div>
         </div>
 
         <div class="event-card-body">
-          <div class="event-tagline-festive">${item.tagline}</div>
-          <h3 class="event-title">${item.title}</h3>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+            <span class="event-tagline-festive">${item.tagline || 'Lifestyle Exhibition'}</span>
+            ${stallsBadge}
+          </div>
+
+          <h3 class="event-title">
+            <a href="${item.detail_url || 'event.php?id=' + item.id}" style="color:inherit; text-decoration:none;">${item.title}</a>
+          </h3>
           
           <div class="event-meta-item">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
@@ -341,42 +399,44 @@ function initUpcomingEvents() {
 
           <div class="event-meta-item">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            <span>${item.timing}</span>
+            <span>${item.timing || '11:00 AM – 9:00 PM'}</span>
           </div>
 
-          <div class="event-meta-item">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-            <span style="color: #2e7d32; font-weight: 600;">${item.expectedFootfall}</span>
+          <div style="display: flex; justify-content: space-between; align-items: center; background: #faf7f8; border: 1px solid #ebdada; border-radius: 8px; padding: 0.5rem 0.75rem; margin: 0.75rem 0 0.85rem;">
+            <div style="font-size: 0.8rem; color: #666;">
+              <span>Stalls:</span> <strong>Canopy / Table</strong>
+            </div>
+            <div style="text-align: right;">
+              <span style="font-size: 0.72rem; color: #777;">Starting:</span>
+              <strong style="color: var(--burgundy-900); font-family: var(--font-cinzel); font-size: 1.05rem; margin-left: 0.25rem;">${item.minPrice || '₹4,000'}</strong>
+            </div>
           </div>
 
-          <div class="event-highlights-pills">
-            ${item.highlights.map(h => `<span class="event-pill">✨ ${h}</span>`).join('')}
-          </div>
-
-          <div class="event-card-footer">
-            <button class="btn btn-burgundy" onclick="selectEventForBooking('${item.id}')">
-              🎪 Book Stall
-            </button>
-            <button class="btn btn-gold" onclick="selectEventForPass('${item.id}')">
-              🎟️ Free Pass
-            </button>
+          <div class="event-card-footer" style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
+            <a href="${item.detail_url || 'event.php?id=' + item.id}" class="btn btn-outline-gold" style="font-size: 0.85rem; padding: 0.65rem 0.5rem; text-align: center; justify-content: center;">
+              <span>View Details</span>
+            </a>
+            <a href="${item.book_url || ('book-a-stall.php?event_id=' + item.id)}" class="btn btn-burgundy" style="font-size: 0.85rem; padding: 0.65rem 0.5rem; text-align: center; justify-content: center;">
+              <span>🎪 Book Stall</span>
+            </a>
           </div>
         </div>
       </div>
-    `).join('');
+    `;
+    }).join('');
   }
 
   // Check URL params for city filter
   const urlParams = new URLSearchParams(window.location.search);
-  const cityParam = urlParams.get("city") || "all";
+  currentCity = urlParams.get("city") || "all";
 
   // Initial render
-  renderEvents(cityParam);
+  renderEvents();
 
   // Set active class on filter button matching URL param
   filterBtns.forEach(btn => {
     const btnCity = btn.getAttribute("data-city") || "all";
-    if (btnCity.toLowerCase() === cityParam.toLowerCase()) {
+    if (btnCity.toLowerCase() === currentCity.toLowerCase()) {
       filterBtns.forEach(b => b.classList.remove("active"));
       btn.classList.add("active");
     }
@@ -387,9 +447,19 @@ function initUpcomingEvents() {
     btn.addEventListener("click", () => {
       filterBtns.forEach(b => b.classList.remove("active"));
       btn.classList.add("active");
-      const city = btn.getAttribute("data-city") || "all";
-      renderEvents(city);
+      currentCity = btn.getAttribute("data-city") || "all";
+      renderEvents();
     });
+  });
+
+  // Search input handler
+  searchInput?.addEventListener("input", () => {
+    renderEvents();
+  });
+
+  // Sort select handler
+  sortSelect?.addEventListener("change", () => {
+    renderEvents();
   });
 }
 
@@ -402,8 +472,8 @@ window.selectEventForBooking = function(eventId) {
     updateStallSummary();
     document.getElementById("booking-studio")?.scrollIntoView({ behavior: "smooth" });
   } else {
-    // Navigate to dedicated book-a-stall.html page with query param
-    window.location.href = `book-a-stall.html?event=${eventId}`;
+    // Navigate to dedicated book-a-stall.php page with query param
+    window.location.href = `book-a-stall.php?event_id=${eventId}`;
   }
 };
 
@@ -414,8 +484,8 @@ window.selectEventForPass = function(eventId) {
     select.value = eventId;
     document.getElementById("shopper-pass")?.scrollIntoView({ behavior: "smooth" });
   } else {
-    // Navigate to dedicated free-shopper-pass.html page with query param
-    window.location.href = `free-shopper-pass.html?event=${eventId}`;
+    // Navigate to dedicated free-shopper-pass.php page with query param
+    window.location.href = `free-shopper-pass.php?event_id=${eventId}`;
   }
 };
 
@@ -431,14 +501,15 @@ function initStallBookingStudio() {
   const whatsappCtaBtn = document.getElementById("whatsapp-booking-btn");
 
   // Populate events in select dropdown
-  if (eventSelect) {
-    eventSelect.innerHTML = exhibitionsData.map(e => `
-      <option value="${e.id}">${e.title} (${e.city}) — ${e.date.day} ${e.date.month}</option>
+  const eventsSource = (window.EXPO_EVENTS && window.EXPO_EVENTS.length > 0) ? window.EXPO_EVENTS : exhibitionsData;
+  if (eventSelect && eventSelect.children.length === 0) {
+    eventSelect.innerHTML = eventsSource.map(e => `
+      <option value="${e.id}">${e.title} (${e.city}) — ${e.date ? (e.date.day + ' ' + e.date.month) : ''}</option>
     `).join('');
 
     // Pre-select if URL has ?event=...
-    const urlEvent = new URLSearchParams(window.location.search).get("event");
-    if (urlEvent && exhibitionsData.some(e => e.id === urlEvent)) {
+    const urlEvent = new URLSearchParams(window.location.search).get("event") || new URLSearchParams(window.location.search).get("event_id");
+    if (urlEvent && eventsSource.some(e => String(e.id) === String(urlEvent))) {
       eventSelect.value = urlEvent;
     }
   }
@@ -470,7 +541,8 @@ function initStallBookingStudio() {
   // WhatsApp click handler
   whatsappCtaBtn?.addEventListener("click", (e) => {
     e.preventDefault();
-    const eventObj = exhibitionsData.find(e => e.id === eventSelect?.value) || exhibitionsData[0];
+    const eventsSource = (window.EXPO_EVENTS && window.EXPO_EVENTS.length > 0) ? window.EXPO_EVENTS : exhibitionsData;
+    const eventObj = eventsSource.find(e => String(e.id) === String(eventSelect?.value)) || eventsSource[0];
     const category = categorySelect?.value || "Jewellery & Accessories";
     const brandName = brandNameInput?.value?.trim() || "My Brand";
     const selectedCard = document.querySelector(".stall-type-card.selected");
@@ -489,7 +561,7 @@ I would like to enquire & book a stall for our brand:
 
 • Brand Name: *${brandName}*
 • Target Exhibition: *${eventObj.title}*
-• Venue & City: *${eventObj.venue}, ${eventObj.city}* (${eventObj.date.day} ${eventObj.date.month})
+• Venue & City: *${eventObj.venue}, ${eventObj.city}* (${eventObj.date ? (eventObj.date.day + ' ' + eventObj.date.month) : ''})
 • Category: *${category}*
 • Preferred Stall Type: *${stallType}*
 • Required Amenities: *${addonsText}*
@@ -513,7 +585,8 @@ function updateStallSummary() {
   const summaryStall = document.getElementById("summary-stall-type");
   const summaryAddons = document.getElementById("summary-addons-text");
 
-  const eventObj = exhibitionsData.find(e => e.id === eventSelect?.value) || exhibitionsData[0];
+  const eventsSource = (window.EXPO_EVENTS && window.EXPO_EVENTS.length > 0) ? window.EXPO_EVENTS : exhibitionsData;
+  const eventObj = eventsSource.find(e => String(e.id) === String(eventSelect?.value)) || eventsSource[0];
   if (summaryEvent && eventObj) {
     summaryEvent.textContent = `${eventObj.title} (${eventObj.city})`;
   }
@@ -549,14 +622,15 @@ function initShopperPassGenerator() {
   const eventSelect = document.getElementById("shopper-event-select");
 
   // Populate events in shopper dropdown
-  if (eventSelect) {
-    eventSelect.innerHTML = exhibitionsData.map(e => `
+  const eventsSource = (window.EXPO_EVENTS && window.EXPO_EVENTS.length > 0) ? window.EXPO_EVENTS : exhibitionsData;
+  if (eventSelect && eventSelect.children.length === 0) {
+    eventSelect.innerHTML = eventsSource.map(e => `
       <option value="${e.id}">${e.title} (${e.city})</option>
     `).join('');
 
     // Pre-select if URL has ?event=...
-    const urlEvent = new URLSearchParams(window.location.search).get("event");
-    if (urlEvent && exhibitionsData.some(e => e.id === urlEvent)) {
+    const urlEvent = new URLSearchParams(window.location.search).get("event") || new URLSearchParams(window.location.search).get("event_id");
+    if (urlEvent && eventsSource.some(e => String(e.id) === String(urlEvent))) {
       eventSelect.value = urlEvent;
     }
   }
@@ -567,7 +641,7 @@ function initShopperPassGenerator() {
     const phone = document.getElementById("shopper-phone")?.value?.trim() || "";
     const city = document.getElementById("shopper-city")?.value || "Delhi NCR";
     const selectedEventId = eventSelect?.value;
-    const eventObj = exhibitionsData.find(e => e.id === selectedEventId) || exhibitionsData[0];
+    const eventObj = eventsSource.find(e => String(e.id) === String(selectedEventId)) || eventsSource[0];
 
     // Generate random Pass ID
     const randomCode = Math.floor(1000 + Math.random() * 9000);

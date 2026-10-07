@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /includes/
+Disallow: /scratch/
+Disallow: /database/
+
+Sitemap: http://localhost/expotree/sitemap.xml
