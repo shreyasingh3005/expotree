@@ -307,41 +307,64 @@ require_once __DIR__ . '/includes/header.php';
 
 <style>
 /* Scoped Mobile Responsiveness for event.php */
-.event-hero-section { padding: 3rem 1.25rem 2.25rem; text-align: center; position: relative; overflow: hidden; }
-.event-breadcrumb-wrap { display: flex; gap: 0.5rem; align-items: center; justify-content: center; margin-bottom: 0.85rem; flex-wrap: wrap; }
-.event-hero-title { font-family: var(--font-cinzel); font-size: clamp(1.4rem, 4vw, 2.5rem); color: #ffffff; margin-bottom: 0.75rem; text-align: center; line-height: 1.25; word-wrap: break-word; overflow-wrap: break-word; }
-.event-hero-meta { display: flex; justify-content: center; gap: 1rem 1.5rem; flex-wrap: wrap; margin-top: 1rem; font-size: 0.95rem; color: #ffd6df; }
-.event-hero-meta > div { display: flex; align-items: center; gap: 0.4rem; word-break: break-word; }
-.event-main-section { padding-top: 2.5rem; padding-bottom: 4.5rem; }
-.event-details-layout { display: grid; grid-template-columns: 1.2fr 1fr; gap: 2.5rem; align-items: start; }
-.event-hero-media { position: relative; border-radius: 20px; overflow: hidden; border: 1.5px solid var(--border-gold); box-shadow: var(--shadow-card); margin-bottom: 1.75rem; background: #1a0408; }
-.event-hero-img { width: 100%; height: 380px; object-fit: cover; display: block; }
-.event-media-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(20,2,5,0.85) 100%); }
+.event-hero-section { padding: 3rem 1.25rem 2.25rem; text-align: center; position: relative; overflow: hidden; width: 100%; max-width: 100%; box-sizing: border-box; }
+.event-breadcrumb-wrap { display: flex; gap: 0.5rem; align-items: center; justify-content: center; margin-bottom: 0.85rem; flex-wrap: wrap; width: 100%; max-width: 100%; }
+.event-hero-title { font-family: var(--font-cinzel); font-size: clamp(1.4rem, 4vw, 2.5rem); color: #ffffff; margin-bottom: 0.75rem; text-align: center; line-height: 1.25; word-wrap: break-word; overflow-wrap: break-word; max-width: 100%; }
+.event-hero-meta { display: flex; justify-content: center; gap: 1rem 1.5rem; flex-wrap: wrap; margin-top: 1rem; font-size: 0.95rem; color: #ffd6df; width: 100%; max-width: 100%; }
+.event-hero-meta > div { display: flex; align-items: center; gap: 0.4rem; word-break: break-word; max-width: 100%; }
+.event-main-section { padding-top: 2.5rem; padding-bottom: 4.5rem; width: 100%; max-width: 100%; overflow-x: hidden; box-sizing: border-box; }
+.event-details-layout { display: grid; grid-template-columns: 1.2fr 1fr; gap: 2.5rem; align-items: start; width: 100%; max-width: 100%; min-width: 0; }
+.event-details-layout > div { min-width: 0 !important; max-width: 100% !important; width: 100% !important; box-sizing: border-box; }
+.event-hero-media { position: relative; border-radius: 20px; overflow: hidden; border: 1.5px solid var(--border-gold); box-shadow: var(--shadow-card); margin-bottom: 1.75rem; background: #1a0408; width: 100%; max-width: 100%; min-width: 0; box-sizing: border-box; }
+.event-hero-img { width: 100%; max-width: 100%; height: 380px; object-fit: cover; display: block; }
+.event-media-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(20,2,5,0.85) 100%); width: 100%; max-width: 100%; }
 .event-media-info { position: absolute; bottom: 1.25rem; left: 1.25rem; right: 1.25rem; display: flex; justify-content: space-between; align-items: flex-end; color: #ffffff; gap: 1rem; }
 .event-category-badge { display: inline-block; background: var(--gold-500); color: #1a0408; font-size: 0.78rem; font-weight: 800; padding: 0.25rem 0.75rem; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.04em; }
 .event-media-venue-title { font-family: var(--font-cinzel); font-size: 1.5rem; color: #ffffff; margin-top: 0.4rem; line-height: 1.25; text-shadow: 0 2px 8px rgba(0,0,0,0.85); word-wrap: break-word; overflow-wrap: break-word; }
-.event-card { background: #ffffff; border: 1.5px solid var(--border-gold); border-radius: 20px; padding: 2rem; box-shadow: var(--shadow-card); margin-bottom: 1.75rem; word-wrap: break-word; overflow-wrap: break-word; }
-.event-card-title { font-family: var(--font-cinzel); font-size: 1.35rem; color: var(--burgundy-950); margin-bottom: 1.25rem; border-bottom: 1px solid #ebdada; padding-bottom: 0.75rem; }
-.event-specs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1.15rem; margin-bottom: 1.5rem; }
-.event-spec-box { background: #faf7f8; padding: 0.9rem 1rem; border-radius: 12px; border: 1px solid #ebdada; }
+.event-card { background: #ffffff; border: 1.5px solid var(--border-gold); border-radius: 20px; padding: 2rem; box-shadow: var(--shadow-card); margin-bottom: 1.75rem; word-wrap: break-word; overflow-wrap: break-word; width: 100%; max-width: 100%; min-width: 0; box-sizing: border-box; }
+.event-card-title { font-family: var(--font-cinzel); font-size: 1.35rem; color: var(--burgundy-950); margin-bottom: 1.25rem; border-bottom: 1px solid #ebdada; padding-bottom: 0.75rem; word-wrap: break-word; overflow-wrap: break-word; }
+.event-specs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1.15rem; margin-bottom: 1.5rem; width: 100%; max-width: 100%; min-width: 0; }
+.event-spec-box { background: #faf7f8; padding: 0.9rem 1rem; border-radius: 12px; border: 1px solid #ebdada; min-width: 0; max-width: 100%; box-sizing: border-box; }
 .event-spec-label { font-size: 0.75rem; color: #777; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 0.25rem; }
 .event-spec-value { font-size: 1.02rem; font-weight: 700; color: var(--burgundy-900); word-break: break-word; }
-.event-address-box { background: #fdfaf6; border-left: 4px solid var(--gold-500); padding: 1rem 1.25rem; border-radius: 0 10px 10px 0; margin-bottom: 1.25rem; word-break: break-word; }
-.event-info-subbox { background: #faf7f8; border: 1px solid #ebdada; border-radius: 12px; padding: 1.25rem; margin-top: 1.15rem; word-break: break-word; }
-.event-info-subbox-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
-.event-table-responsive { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: 10px; }
-.event-pricing-table { width: 100%; min-width: 480px; border-collapse: collapse; font-size: 0.88rem; text-align: left; }
+.event-address-box { background: #fdfaf6; border-left: 4px solid var(--gold-500); padding: 1rem 1.25rem; border-radius: 0 10px 10px 0; margin-bottom: 1.25rem; word-break: break-word; width: 100%; max-width: 100%; box-sizing: border-box; }
+.event-info-subbox { background: #faf7f8; border: 1px solid #ebdada; border-radius: 12px; padding: 1.25rem; margin-top: 1.15rem; word-break: break-word; width: 100%; max-width: 100%; box-sizing: border-box; }
+.event-info-subbox-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; width: 100%; max-width: 100%; min-width: 0; }
+.event-table-responsive { width: 100%; max-width: 100%; min-width: 0; overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: 10px; }
+.event-pricing-table { width: 100%; min-width: 0; border-collapse: collapse; font-size: 0.88rem; text-align: left; }
 .event-pricing-table th { padding: 0.85rem 1rem; background: #faf4f5; color: var(--burgundy-950); border-bottom: 2px solid var(--border-gold); font-weight: 700; font-size: 0.82rem; text-transform: uppercase; }
 .event-pricing-table td { padding: 0.85rem 1rem; border-bottom: 1px solid #ebdada; vertical-align: middle; }
-.event-booking-studio { background: #ffffff; border: 2px solid var(--gold-500); border-radius: 20px; padding: 2rem 1.75rem; box-shadow: 0 15px 35px rgba(43, 7, 13, 0.12); position: sticky; top: 90px; }
-.event-booking-header { text-align: center; margin-bottom: 1.5rem; border-bottom: 1px solid #ebdada; padding-bottom: 1.25rem; }
-.form-row-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 1.15rem; }
-.form-input-control { width: 100%; box-sizing: border-box; padding: 0.68rem 0.85rem; border: 1.5px solid #d8c3c7; border-radius: 10px; font-size: 0.9rem; background: #ffffff; color: var(--text-dark); font-family: inherit; transition: border-color 0.2s ease; }
+
+/* Mobile Stall Pricing Card List (Clean, 100% responsive, no horizontal scroll) */
+.stall-pricing-cards-list { display: flex; flex-direction: column; gap: 0.85rem; width: 100%; max-width: 100%; min-width: 0; }
+.stall-pricing-card { background: #fdfaf6; border: 1.5px solid #ebdada; border-radius: 14px; padding: 1rem 1.15rem; width: 100%; max-width: 100%; box-sizing: border-box; }
+.stall-pricing-card-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 0.75rem; margin-bottom: 0.4rem; flex-wrap: wrap; }
+.stall-pricing-card-name { font-weight: 700; color: var(--burgundy-950); font-size: 0.95rem; flex: 1; min-width: 140px; }
+.stall-pricing-card-rate { font-weight: 800; color: var(--burgundy-900); font-family: var(--font-cinzel); font-size: 1.05rem; background: #faecee; padding: 0.25rem 0.65rem; border-radius: 8px; border: 1px solid rgba(167, 26, 52, 0.2); white-space: nowrap; }
+.stall-pricing-card-rate small { font-size: 0.72rem; color: #666; font-family: var(--font-sans); font-weight: 500; }
+.stall-pricing-card-desc { color: #666; font-size: 0.84rem; line-height: 1.45; }
+
+.event-booking-studio { background: #ffffff; border: 2px solid var(--gold-500); border-radius: 20px; padding: 2rem 1.75rem; box-shadow: 0 15px 35px rgba(43, 7, 13, 0.12); position: sticky; top: 90px; width: 100%; max-width: 100%; min-width: 0; box-sizing: border-box; }
+.event-booking-header { text-align: center; margin-bottom: 1.5rem; border-bottom: 1px solid #ebdada; padding-bottom: 1.25rem; width: 100%; max-width: 100%; min-width: 0; }
+.form-row-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 1.15rem; width: 100%; max-width: 100%; min-width: 0; }
+.form-row-2col > div { min-width: 0 !important; max-width: 100% !important; width: 100% !important; }
+.form-input-control { width: 100% !important; max-width: 100% !important; min-width: 0 !important; box-sizing: border-box !important; padding: 0.68rem 0.85rem; border: 1.5px solid #d8c3c7; border-radius: 10px; font-size: 0.9rem; background: #ffffff; color: var(--text-dark); font-family: inherit; transition: border-color 0.2s ease; }
 .form-input-control:focus { border-color: var(--burgundy-800); outline: none; box-shadow: 0 0 0 3px rgba(107, 15, 26, 0.1); }
-.event-cost-estimate-box { background: linear-gradient(135deg, #fdf6f7 0%, #faecee 100%); border: 1.5px solid var(--border-gold); border-radius: 14px; padding: 1.15rem; margin-bottom: 1.5rem; }
-.voucher-card { background: linear-gradient(135deg, #064E3B 0%, #022c22 100%); border: 2px solid #10B981; border-radius: 20px; padding: 2.5rem 1.75rem; color: #ffffff; margin-bottom: 3rem; box-shadow: 0 15px 40px rgba(6, 78, 59, 0.4); text-align: center; }
-.voucher-details-box { background: rgba(0,0,0,0.3); border: 1px solid rgba(167, 243, 208, 0.3); border-radius: 14px; max-width: 600px; margin: 0 auto 2rem; padding: 1.5rem; text-align: left; font-size: 0.92rem; }
-.voucher-grid-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; }
+select.form-input-control { text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
+.event-cost-estimate-box { background: linear-gradient(135deg, #fdf6f7 0%, #faecee 100%); border: 1.5px solid var(--border-gold); border-radius: 14px; padding: 1.15rem; margin-bottom: 1.5rem; width: 100%; max-width: 100%; min-width: 0; box-sizing: border-box; }
+.voucher-card { background: linear-gradient(135deg, #064E3B 0%, #022c22 100%); border: 2px solid #10B981; border-radius: 20px; padding: 2.5rem 1.75rem; color: #ffffff; margin-bottom: 3rem; box-shadow: 0 15px 40px rgba(6, 78, 59, 0.4); text-align: center; width: 100%; max-width: 100%; box-sizing: border-box; }
+.voucher-details-box { background: rgba(0,0,0,0.3); border: 1px solid rgba(167, 243, 208, 0.3); border-radius: 14px; max-width: 600px; margin: 0 auto 2rem; padding: 1.5rem; text-align: left; font-size: 0.92rem; width: 100%; box-sizing: border-box; }
+.voucher-grid-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; width: 100%; max-width: 100%; min-width: 0; }
+
+@media (min-width: 768px) {
+  .stall-pricing-cards-list { display: none !important; }
+  .event-table-responsive { display: block !important; }
+}
+
+@media (max-width: 767px) {
+  .stall-pricing-cards-list { display: flex !important; }
+  .event-table-responsive { display: none !important; }
+}
 
 @media (max-width: 991px) {
   .event-details-layout { grid-template-columns: 1fr !important; gap: 2rem !important; }
@@ -350,17 +373,17 @@ require_once __DIR__ . '/includes/header.php';
 }
 
 @media (max-width: 767px) {
-  .event-hero-section { padding: 2.25rem 1rem 1.75rem !important; }
-  .event-hero-title { font-size: 1.5rem !important; line-height: 1.3 !important; }
+  .event-hero-section { padding: 2rem 1rem 1.5rem !important; }
+  .event-hero-title { font-size: 1.45rem !important; line-height: 1.3 !important; }
   .event-hero-meta { flex-direction: column !important; align-items: center !important; gap: 0.4rem !important; text-align: center !important; font-size: 0.88rem !important; }
-  .event-main-section { padding-top: 1.5rem !important; padding-bottom: 3.5rem !important; }
-  .event-card, .event-booking-studio { padding: 1.35rem 1rem !important; border-radius: 16px !important; }
-  .event-hero-img { height: 240px !important; }
-  .event-media-info { flex-direction: column !important; align-items: flex-start !important; gap: 0.5rem !important; bottom: 1rem !important; left: 1rem !important; right: 1rem !important; }
-  .event-media-venue-title { font-size: 1.25rem !important; }
-  .event-specs-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 0.75rem !important; }
-  .event-spec-box { padding: 0.75rem 0.85rem !important; }
-  .event-spec-value { font-size: 0.9rem !important; }
+  .event-main-section { padding-top: 1.25rem !important; padding-bottom: 3rem !important; }
+  .event-card, .event-booking-studio { padding: 1.25rem 0.9rem !important; border-radius: 16px !important; }
+  .event-hero-img { height: 220px !important; }
+  .event-media-info { flex-direction: column !important; align-items: flex-start !important; gap: 0.5rem !important; bottom: 0.85rem !important; left: 0.85rem !important; right: 0.85rem !important; }
+  .event-media-venue-title { font-size: 1.2rem !important; }
+  .event-specs-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 0.65rem !important; }
+  .event-spec-box { padding: 0.65rem 0.75rem !important; }
+  .event-spec-value { font-size: 0.88rem !important; }
   .event-info-subbox-grid { grid-template-columns: 1fr !important; gap: 0.75rem !important; }
   .form-row-2col { grid-template-columns: 1fr !important; gap: 0.85rem !important; margin-bottom: 0.85rem !important; }
   .voucher-grid-2col { grid-template-columns: 1fr !important; }
@@ -369,10 +392,10 @@ require_once __DIR__ . '/includes/header.php';
 }
 
 @media (max-width: 480px) {
-  .event-hero-section { padding: 2rem 0.75rem 1.5rem !important; }
-  .event-specs-grid { grid-template-columns: 1fr !important; gap: 0.65rem !important; }
-  .event-hero-img { height: 210px !important; }
-  .event-pricing-table { min-width: 420px !important; }
+  .event-hero-section { padding: 1.5rem 0.75rem 1.25rem !important; }
+  .event-hero-title { font-size: 1.3rem !important; }
+  .event-specs-grid { grid-template-columns: 1fr !important; gap: 0.6rem !important; }
+  .event-hero-img { height: 195px !important; }
   .btn-wa-voucher { font-size: 0.95rem !important; padding: 0.85rem 1.25rem !important; width: 100% !important; text-align: center !important; justify-content: center !important; }
 }
 </style>
@@ -591,11 +614,35 @@ require_once __DIR__ . '/includes/header.php';
           <?php endif; ?>
         </div>
 
-        <!-- Stall Pricing Matrix Table (Excel Grounded) -->
+        <!-- Stall Pricing Matrix (Desktop Table + Mobile Cards) -->
         <div class="event-card">
           <h3 class="event-card-title">
             Stall Options &amp; Inventory Rates
           </h3>
+
+          <!-- Mobile Cards View (<= 767px: 100% responsive, finger-friendly) -->
+          <div class="stall-pricing-cards-list">
+            <?php foreach ($stallOptions as $opt): ?>
+              <div class="stall-pricing-card">
+                <div class="stall-pricing-card-header">
+                  <div class="stall-pricing-card-name"><?= e($opt['name']) ?></div>
+                  <div class="stall-pricing-card-rate"><?= formatPrice($opt['price']) ?> <small>/ day</small></div>
+                </div>
+                <div class="stall-pricing-card-desc"><?= e($opt['desc']) ?></div>
+              </div>
+            <?php endforeach; ?>
+            <?php if (!empty($event['price_promotional'])): ?>
+              <div class="stall-pricing-card">
+                <div class="stall-pricing-card-header">
+                  <div class="stall-pricing-card-name">Promotional Brand Stall</div>
+                  <div class="stall-pricing-card-rate"><?= e($event['price_promotional']) ?></div>
+                </div>
+                <div class="stall-pricing-card-desc">Corporate sampling, kiosks &amp; brand activation</div>
+              </div>
+            <?php endif; ?>
+          </div>
+
+          <!-- Desktop / Tablet Table View (>= 768px) -->
           <div class="event-table-responsive">
             <table class="event-pricing-table">
               <thead>

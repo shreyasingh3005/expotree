@@ -36,8 +36,8 @@ try {
         <p class="footer-desc">
           Connecting homegrown businesses, boutique designers, and artisanal creators with eager shoppers across Delhi NCR through curated lifestyle &amp; festive exhibitions.
         </p>
-        <div style="margin-top: 1.25rem; display: flex; gap: 0.75rem; align-items: center;">
-          <a href="https://www.instagram.com/<?= INSTAGRAM_HANDLE ?>/" target="_blank" rel="noopener noreferrer" style="color: var(--gold-300); font-size: 0.88rem; text-decoration: none; display: flex; align-items: center; gap: 0.4rem; background: rgba(212,175,55,0.12); padding: 0.4rem 0.8rem; border-radius: 20px; border: 1px solid rgba(212,175,55,0.3);">
+        <div style="margin-top: 1.25rem; display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap;">
+          <a href="https://www.instagram.com/<?= INSTAGRAM_HANDLE ?>/" target="_blank" rel="noopener noreferrer" style="color: var(--gold-300); font-size: 0.88rem; text-decoration: none; display: flex; align-items: center; gap: 0.4rem; background: rgba(212,175,55,0.12); padding: 0.4rem 0.8rem; border-radius: 20px; border: 1px solid rgba(212,175,55,0.3); max-width: 100%; box-sizing: border-box; flex-wrap: wrap;">
             <span>📸 Instagram</span>
             <strong>@<?= INSTAGRAM_HANDLE ?></strong>
             <span style="font-size: 0.75rem; background: var(--gold-500); color: #1a0408; padding: 0.1rem 0.4rem; border-radius: 10px; font-weight: 700;"><?= INSTAGRAM_FOLLOWERS ?></span>
